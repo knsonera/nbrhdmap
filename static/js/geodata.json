@@ -1,0 +1,20 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            37.452019,
+            -122.185558
+          ]
+        },
+        "type": "Feature",
+        "properties": {
+          "category": "coffee shop",
+          "description": "Coffeebar is a radically-inclusive Italian café experience, no matter the time of day you stop by.",
+          "name": "Coffeevar Menlo Park"
+        }
+      }
+    ]
+  }
