@@ -5,5 +5,5 @@ function initMap() {
     center: {lat: 37.45, lng: -122.16}
   });
 
-  map.data.loadGeoJson('geodata.json');
+  map.data.loadGeoJson('../static/js/geodata.json');
 }
