@@ -1,51 +1,103 @@
-html, body, #map {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+body {
+    font-size: .875rem;
 }
 
-#menu {
-    position: absolute;
-    width: 14em;
-    background: #fcf8ef;
-    border: 1px solid #f7e1b5;
-    padding-bottom: 10px;
-    z-index: 2;
+.wrapper {
+    display: flex;
+    align-items: stretch;
 }
 
-#menu ul {
-    list-style-type: none;
-    padding: 20px;
-    margin: 0;
-}
-
-input {
-    width: 10em;
-}
-
-.navbar-default {
-    background-color: #fcf8ef;
-    border-color: #f7e1b5;
-}
-
-.navbar-default .navbar-brand {
-    color: black;
-    font-size: 22px;
-}
-
-.navbar-default .navbar-nav > li > a {
-    color: black;
-    font-size: 18px;
-}
-
+/* ICONS */
+  
 .feather {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     vertical-align: text-bottom;
 }
 
-.map-icon {
-    width: 24px;
-    height: 24px;
+/* NAVBAR */
+
+.navbar {
+    background: lightblue;
+}
+  
+.navbar-brand {
+    padding-top: .6rem;
+    padding-bottom: .6rem;
+    font-size: 1rem;
+    color: rgb(5, 78, 78);
+    font-weight: bold;
+    font-size: 22px;
+    padding-left: 1rem;
+}
+
+.nav-text {
+    padding-left: .7rem;
+}
+
+.nav-text {
+    position: relative;
+}
+
+#sidebarCollapse {
+    margin-right: 10px;
+    background: teal;
+    color: aliceblue;
+}
+
+/* SIDEBAR */
+
+#sidebar {
+    padding: 48px 0 0;
+    min-width: 250px;
+    max-width: 250px;
+    background: aliceblue;
+    color: #fff;
+    transition: all 0.3s;
+    z-index: 100;
+    float: right;
+    position: absolute;
+    right: 0;
+    height: 100%;
+}
+
+#sidebar.active {
+    margin-right: -250px;
+}
+
+#sidebar .sidebar-header {
+    color: teal;
+    padding: 20px;
+    padding-top: 25px;
+    background: aliceblue;
+}
+
+/* MAP */
+
+#map {
+    width: 100%;
+    margin-right: 250px;
+    left: 0;
+    background: papayawhip;
+    padding: 48px 0 0;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+#map.active {
+    margin-right: 0;
+}
+
+/* MEDIA */
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
 }
