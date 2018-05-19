@@ -1,4 +1,5 @@
 body {
+    height: 100%;
     font-size: .875rem
 }
 
@@ -45,6 +46,24 @@ body {
     float: right;
 }
 
+.place-list {
+    padding-top: 10px;
+    clear: both;
+}
+
+.nav-item {
+    font-size: 14px;
+    color: teal;
+}
+
+.nav-link {
+    color: teal;
+}
+
+.nav-link .active {
+    font-weight: bold;
+}
+
 /* SIDEBAR */
 
 #sidebar {
@@ -61,6 +80,7 @@ body {
 }
 
 #sidebar.active {
+    display: none;
     margin-right: -250px;
 }
 
