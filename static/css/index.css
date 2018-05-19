@@ -66,8 +66,31 @@ body {
 
 #sidebar .sidebar-header {
     color: teal;
-    padding: 15px;
+    margin: 10px;
     background: aliceblue;
+}
+
+.list-title {
+    font-size: 18px;
+    font-weight: bold;
+    float: left;
+    margin-top: 8px;
+    margin-left: 10px;
+}
+
+#dropdownMenuButton {
+    float: right;
+    background-color: lightblue
+}
+
+.dropdown-item {
+    padding: 10px;
+    margin-left: 12px;
+}
+
+.dropdown-header {
+    font-weight: bold;
+    font-size: 16px;
 }
 
 /* MAP */

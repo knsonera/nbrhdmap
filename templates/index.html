@@ -4,12 +4,17 @@
 <head>
     <title>MyMap</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <!-- Latest compiled and minified CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>    <link href="../static/css/index.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <link href="../static/css/index.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="../static/pics/map.png" />
     <link rel="icon" type="image/png" href="../static/pics/map.png" />
     <script src="https://unpkg.com/feather-icons"></script>
@@ -32,10 +37,23 @@
         </div>
         <nav id="sidebar" class="active">
             <div class="sidebar-header">
-                <h4>Coffee shops</h4>
-            </div>
+                <span class="list-title">Coffee shops</span>
+                <div class="dropdown">
+                    <button type="button" class="btn dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i data-feather="filter"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-header">Milk alternatives</div>
+                        <div class="dropdown-item"><a href="#">Oat Milk</a></div>
+                        <div class="dropdown-item"><a href="#">Almond Milk</a></div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-header">Business hours</div>
+                        <div class="dropdown-item"><a href="#">Open until 9pm</a></div>
+                        <div class="dropdown-item"><a href="#">Open until midnight</a></div>
+                    </div>
+                </div>
         </nav>
-    </div>
+        </div>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
