@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>MyMap</title>
+    <title>Seattle's Coffee</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
@@ -22,88 +22,90 @@
 </head>
 
 <body>
-    <nav class="navbar fixed-top flex-md-nowrap">
-        <a class="navbar-brand" href="http://map.uzhvieva.com/">
-            <img class="map-icon" src="../static/icons/coffee.png">
-        </a>
-        <a class="navbar-brand nav-text" href="">Seattle's Best Coffee Shops</a>
-        <button type="button" id="sidebarCollapse" class="btn navbar-btn">
-            <i data-feather="list"></i>
-        </button>
-    </nav>
+    <div class="container">
+        <nav class="navbar fixed-top flex-md-nowrap">
+            <a class="navbar-brand" href="http://map.uzhvieva.com/">
+                <img class="map-icon" src="../static/icons/coffee.png">
+            </a>
+            <a class="navbar-brand nav-text" href="">Seattle's Coffee</a>
+            <button type="button" id="sidebarCollapse" class="btn navbar-btn">
+                <i data-feather="list"></i>
+            </button>
+        </nav>
 
-    <div class="wrapper">
-        <div id="map" class="active">
-        </div>
-        <nav id="sidebar" class="active">
-            <div class="sidebar-header">
-                <span class="list-title">Coffee shops</span>
-                <div class="dropdown">
-                    <button type="button" class="btn dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i data-feather="filter"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <div class="dropdown-header">Milk alternatives</div>
-                        <div class="dropdown-item">
-                            <a href="#">Oat Milk</a>
-                        </div>
-                        <div class="dropdown-item">
-                            <a href="#">Almond Milk</a>
-                        </div>
-                        <div class="dropdown-header">Food options</div>
-                        <div class="dropdown-item">
-                            <a href="#">Breakfast Sandwiches</a>
-                        </div>
-                        <div class="dropdown-item">
-                            <a href="#">Lunch Menu</a>
-                        </div>
-                        <div class="dropdown-header">Business hours</div>
-                        <div class="dropdown-item">
-                            <a href="#">Open until 9pm</a>
-                        </div>
-                        <div class="dropdown-item">
-                            <a href="#">Open until midnight</a>
+        <div class="wrapper">
+            <main role="main" id="map" class="active">
+            </main>
+            <nav id="sidebar" class="active">
+                <div class="sidebar-header">
+                    <span class="list-title">Coffee shops</span>
+                    <div class="dropdown">
+                        <button type="button" class="btn dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i data-feather="filter"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-header">Milk alternatives</div>
+                            <div class="dropdown-item">
+                                <a href="#">Oat Milk</a>
+                            </div>
+                            <div class="dropdown-item">
+                                <a href="#">Almond Milk</a>
+                            </div>
+                            <div class="dropdown-header">Food options</div>
+                            <div class="dropdown-item">
+                                <a href="#">Breakfast Sandwiches</a>
+                            </div>
+                            <div class="dropdown-item">
+                                <a href="#">Lunch Menu</a>
+                            </div>
+                            <div class="dropdown-header">Business hours</div>
+                            <div class="dropdown-item">
+                                <a href="#">Open until 9pm</a>
+                            </div>
+                            <div class="dropdown-item">
+                                <a href="#">Open until midnight</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <ul class="nav place-list">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="">
-                            Cafe Cesura
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">
-                            Bellden Cafe
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">
-                            Third Culture Coffee
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">
-                            Caffe Ladro
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">
-                            Fika House Kafe
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">
-                            Caffe Umbria
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">
-                            Herkimer Coffee
-                        </a>
-                    </li>
-                </ul>
-        </nav>
+                    <ul class="nav place-list">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="">
+                                Cafe Cesura
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">
+                                Bellden Cafe
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">
+                                Third Culture Coffee
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">
+                                Caffe Ladro
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">
+                                Fika House Kafe
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">
+                                Caffe Umbria
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">
+                                Herkimer Coffee
+                            </a>
+                        </li>
+                    </ul>
+            </nav>
+            </div>
         </div>
     </div>
     <script type="text/javascript">
