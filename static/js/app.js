@@ -1,35 +1,57 @@
 var cafeData = [
     {
         name: "Cafe Cesura",
-        milk: "oat, almond, coconut, hemp, soy"
+        milk: "oat, almond, coconut, hemp, soy",
+        coords: [47.619603,-122.196805],
+        description: "Single-origin coffees, loose-leaf teas & creative sandwiches offered in a cool, clean-lined cafe."
     },
     {
         name: "Bellden Cafe",
-        milk: "oat, almond, soy"
+        milk: "oat, almond, soy",
+        coords: [47.610007,-122.199575],
+        description: "Bellden Cafe, located in downtown Bellevue, serves specialty coffee & tea and artisanal food. We know that life is chaotic so be kind to yourself."
     },
     {
         name: "Third Culture Coffee",
-        milk: "oat, soy"
+        milk: "oat, soy",
+        coords: [47.61089,-122.203949],
+        description: "Stylish coffee shop featuring hot & cold brews, tea, light eats & eclectic global decor."
     },
     {
         name: "Caffe Ladro",
-        milk: "almond, soy"
+        milk: "almond, soy",
+        coords: [47.613389,-122.1971],
+        description: "Contemporary local coffeehouse chain featuring sustainable beans plus pastries & other baked goods."
     },
     {
         name: "Fika House Kafe",
-        milk: "oat, almond, coconut, soy, hemp"
+        milk: "oat, almond, coconut, soy, hemp",
+        coords: [47.612743,-122.198613],
+        description: "At Fika House Kafe, enjoy the sweet smell of authentic Belgian waffles seasonally driven and chef-perfected. Savor your coffee's journey from farm to Fika House"
     },
     {
         name: "Caffe Umbria",
-        milk: "soy, almond"
+        milk: "soy, almond",
+        coords: [47.629949,-122.341634],
+        description: "Upmarket espresso plus panini & pastries in a European-style cafe setting with outdoor tables."
     },
     {
         name: "Herkimer Coffee",
-        milk: "soy, almond"
+        milk: "soy, almond",
+        coords: [47.627248,-122.342578],
+        description: "Contemporary coffeehouse with casual seating, offering house blends & retail beans."
     },
     {
-        name: "Starbucks",
-        milk: "soy, coconut, almond"
+        name: "Starbucks Reverve",
+        milk: "soy, coconut, almond",
+        coords: [47.614002,-122.328433],
+        description: "Seattle-based coffeehouse chain known for its signature roasts, light bites and WiFi availability."
+    },
+    {
+        name: "Fonte Coffee Roaster",
+        milk: "soy, almond",
+        coords: [47.617581,-122.200149],
+        description: "Shop the freshest hand roasted speciality coffee, coffee and tea subscriptions, buy coffee and tea online, visit our cafés in Seattle and Bellevue."
     }
 
 ]
@@ -41,7 +63,7 @@ var Cafe = function (data) {
 
 var ViewModel = function () {
     var self = this;
-    
+
     self.selectedMilk = ko.observable("All");
 
     self.filteredCafe = ko.computed(function () {
