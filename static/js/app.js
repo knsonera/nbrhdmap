@@ -59,6 +59,8 @@ var cafeData = [
 var Cafe = function (data) {
     this.name = ko.observable(data.name);
     this.milk = ko.observable(data.milk);
+    this.coords = ko.observable(data.coords);
+    this.description = ko.observable(data.description);
 }
 
 var ViewModel = function () {
