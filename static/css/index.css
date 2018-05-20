@@ -120,6 +120,17 @@ body .container {
     font-weight: bold;
 }
 
+.filter-category {
+    margin-left: 5px;
+}
+
+.no-result {
+    font-size: 16px;
+    float: left;
+    margin-top: 8px;
+    margin-left: 10px;
+}
+
 /* MAP */
 
 #map {

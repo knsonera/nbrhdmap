@@ -44,30 +44,46 @@
                             <i data-feather="filter"></i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <div class="dropdown-header">Milk alternatives</div>
+                            <div class="dropdown-item active">
+                                <input type="radio" name="category" checked value="All" data-bind="checked:selectedMilk">
+                                <span class="filter-category">Show All</span>
+                                </input>
+                            </div>
+                            <div class="dropdown-header">Choose your favorite:</div>
                             <div class="dropdown-item">
-                                <a href="#">Oat Milk</a>
+                                <input type="radio" name="milk" value="oat" data-bind="checked:selectedMilk">
+                                <span class="filter-category">Oat Milk</span>
+                                </input>
                             </div>
                             <div class="dropdown-item">
-                                <a href="#">Almond Milk</a>
-                            </div>
-                            <div class="dropdown-header">Food options</div>
-                            <div class="dropdown-item">
-                                <a href="#">Breakfast Sandwiches</a>
+                                <input type="radio" name="milk" value="almond" data-bind="checked:selectedMilk">
+                                <span class="filter-category">Almond Milk</span>
+                                </input>
                             </div>
                             <div class="dropdown-item">
-                                <a href="#">Lunch Menu</a>
-                            </div>
-                            <div class="dropdown-header">Business hours</div>
-                            <div class="dropdown-item">
-                                <a href="#">Open until 9pm</a>
+                                <input type="radio" name="milk" value="soy" data-bind="checked:selectedMilk">
+                                <span class="filter-category">Soy Milk</span>
+                                </input>
                             </div>
                             <div class="dropdown-item">
-                                <a href="#">Open until midnight</a>
+                                <input type="radio" name="milk" value="hemp" data-bind="checked:selectedMilk">
+                                <span class="filter-category">Hemp Milk</span>
+                                </input>
+                            </div>
+                            <div class="dropdown-item">
+                                <input type="radio" name="milk" value="coconut" data-bind="checked:selectedMilk">
+                                <span class="filter-category">Coconut Milk</span>
+                                </input>
+                            </div>
+                            <div class="dropdown-item">
+                                <input type="radio" name="milk" value="cashew" data-bind="checked:selectedMilk">
+                                <span class="filter-category">Cashew Milk</span>
+                                </input>
                             </div>
                         </div>
+                        <span class="no-result" data-bind="visible: filteredCafe().length == 0">No Results</span>
                     </div>
-                    <ul class="nav place-list" data-bind="foreach: cafeList">
+                    <ul class="nav place-list" data-bind="foreach: filteredCafe">
                         <li class="nav-item">
                             <a class="nav-link active" href="" data-bind="text: name, click: $parent.setCafe">
                             </a>

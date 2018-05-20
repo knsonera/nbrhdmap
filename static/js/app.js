@@ -1,71 +1,64 @@
-var cafeData = [ 
+var cafeData = [
     {
         name: "Cafe Cesura",
-        milk: "oat, almond",
-        food: "breakfast",
-        hours: "until 7pm"
+        milk: "oat, almond, coconut, hemp, soy"
     },
     {
         name: "Bellden Cafe",
-        milk: "oat, almond",
-        food: "breakfast, lunch",
-        hours: "until 7pm"
+        milk: "oat, almond, soy"
     },
     {
         name: "Third Culture Coffee",
-        milk: "oat",
-        food: "breakfast, lunch",
-        hours: "until 9pm"
+        milk: "oat, soy"
     },
     {
         name: "Caffe Ladro",
-        milk: "almond",
-        food: "breakfast",
-        hours: "until 7pm"
+        milk: "almond, soy"
     },
     {
         name: "Fika House Kafe",
-        milk: "oat, almond",
-        food: "breakfast",
-        hours: "until 7pm"
+        milk: "oat, almond, coconut, soy, hemp"
     },
     {
         name: "Caffe Umbria",
-        milk: "almond",
-        food: "breakfast, lunch",
-        hours: "until 7pm"
+        milk: "soy, almond"
     },
     {
         name: "Herkimer Coffee",
-        milk: "",
-        food: "breakfast",
-        hours: "until 7pm"
+        milk: "soy, almond"
     },
     {
         name: "Starbucks",
-        milk: "almond",
-        food: "breakfast, lunch",
-        hours: "until midnight"
+        milk: "soy, coconut, almond"
     }
 
 ]
 
-var Cafe = function(data) {
+var Cafe = function (data) {
     this.name = ko.observable(data.name);
     this.milk = ko.observable(data.milk);
-    this.food = ko.observable(data.food);
-    this.hours = ko.observable(data.hours);
 }
 
-var ViewModel = function() {
+var ViewModel = function () {
     var self = this;
+    
+    self.selectedMilk = ko.observable("All");
 
-    this.cafeList = ko.observableArray([]);
-    cafeData.forEach(function(cafeItem) {
-        self.cafeList.push( new Cafe(cafeItem) );
-    })
-    this.currentCafe = ko.observable( this.cafeList()[0] );
-    this.setCafe = function(clickedCafe) {
+    self.filteredCafe = ko.computed(function () {
+        var milk = self.selectedMilk();
+        if (milk === "All") {
+            return cafeData;
+        } else {
+            var tempList = cafeData.slice();
+            var result = tempList.filter(function (cafe) {
+                cafeMilk = cafe.milk;
+                return cafeMilk.indexOf(milk) != -1
+            });
+            return result;
+        }
+    });
+    this.currentCafe = ko.observable(this.filteredCafe()[0]);
+    this.setCafe = function (clickedCafe) {
         self.currentCafe(clickedCafe);
     };
 };
