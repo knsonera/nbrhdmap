@@ -67,40 +67,9 @@
                             </div>
                         </div>
                     </div>
-                    <ul class="nav place-list">
+                    <ul class="nav place-list" data-bind="foreach: cafeList">
                         <li class="nav-item">
-                            <a class="nav-link active" href="">
-                                Cafe Cesura
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">
-                                Bellden Cafe
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">
-                                Third Culture Coffee
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">
-                                Caffe Ladro
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">
-                                Fika House Kafe
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">
-                                Caffe Umbria
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">
-                                Herkimer Coffee
+                            <a class="nav-link active" href="" data-bind="text: name, click: $parent.setCafe">
                             </a>
                         </li>
                     </ul>
@@ -116,6 +85,7 @@
             });
         });
     </script>
+    <script src="../static/js/app.js"></script>
     <script src="../static/js/index.js" type="text/javascript"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJu-DuGHp_7ffUNx7gBQNNoangphWaOVE&callback=initMap">
     </script>
