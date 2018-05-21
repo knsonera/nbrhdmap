@@ -45,38 +45,38 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <div class="dropdown-item active">
-                                <input type="radio" name="category" checked value="All" data-bind="checked:selectedMilk">
+                                <input type="radio" name="category" checked value="All" data-bind="checked:selectedMilk" onchange="filterMarkers(this.value);">
                                 <span class="filter-category">Show All</span>
                                 </input>
                             </div>
                             <div class="dropdown-header">Choose your favorite:</div>
                             <div class="dropdown-item">
-                                <input type="radio" name="milk" value="oat" data-bind="checked:selectedMilk">
+                                <input type="radio" name="milk" value="oat" data-bind="checked:selectedMilk" onchange="filterMarkers(this.value);">
                                 <span class="filter-category">Oat Milk</span>
                                 </input>
                             </div>
                             <div class="dropdown-item">
-                                <input type="radio" name="milk" value="almond" data-bind="checked:selectedMilk">
+                                <input type="radio" name="milk" value="almond" data-bind="checked:selectedMilk" onchange="filterMarkers(this.value);">
                                 <span class="filter-category">Almond Milk</span>
                                 </input>
                             </div>
                             <div class="dropdown-item">
-                                <input type="radio" name="milk" value="soy" data-bind="checked:selectedMilk">
+                                <input type="radio" name="milk" value="soy" data-bind="checked:selectedMilk" onchange="filterMarkers(this.value);">
                                 <span class="filter-category">Soy Milk</span>
                                 </input>
                             </div>
                             <div class="dropdown-item">
-                                <input type="radio" name="milk" value="hemp" data-bind="checked:selectedMilk">
+                                <input type="radio" name="milk" value="hemp" data-bind="checked:selectedMilk" onchange="filterMarkers(this.value);">
                                 <span class="filter-category">Hemp Milk</span>
                                 </input>
                             </div>
                             <div class="dropdown-item">
-                                <input type="radio" name="milk" value="coconut" data-bind="checked:selectedMilk">
+                                <input type="radio" name="milk" value="coconut" data-bind="checked:selectedMilk" onchange="filterMarkers(this.value);">
                                 <span class="filter-category">Coconut Milk</span>
                                 </input>
                             </div>
                             <div class="dropdown-item">
-                                <input type="radio" name="milk" value="cashew" data-bind="checked:selectedMilk">
+                                <input type="radio" name="milk" value="cashew" data-bind="checked:selectedMilk" onchange="filterMarkers(this.value);">
                                 <span class="filter-category">Cashew Milk</span>
                                 </input>
                             </div>
@@ -85,7 +85,7 @@
                     </div>
                     <ul class="nav place-list" data-bind="foreach: filteredCafe">
                         <li class="nav-item">
-                            <a class="nav-link active" href="" data-bind="text: name, click: $parent.setCafe">
+                            <a class="nav-link active" href="" data-bind="text: name, click: $parent.setCafe" onclick="triggerClickOnMarker(this.text)">
                             </a>
                         </li>
                     </ul>
@@ -103,7 +103,7 @@
     </script>
     <script src="../static/js/app.js"></script>
     <script src="../static/js/index.js" type="text/javascript"></script>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJu-DuGHp_7ffUNx7gBQNNoangphWaOVE&callback=initMap">
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJu-DuGHp_7ffUNx7gBQNNoangphWaOVE&callback=initializeMap">
     </script>
     <script>
         feather.replace()

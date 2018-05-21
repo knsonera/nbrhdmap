@@ -56,6 +56,8 @@ var cafeData = [
 
 ]
 
+var cafeJS = {};
+
 var Cafe = function (data) {
     this.name = ko.observable(data.name);
     this.milk = ko.observable(data.milk);
@@ -85,6 +87,10 @@ var ViewModel = function () {
     this.setCafe = function (clickedCafe) {
         self.currentCafe(clickedCafe);
     };
+    this.getFilteredCafe = function() {
+        return this.filteredCafe;
+    }
+    cafeJS = ko.toJS(self.filteredCafe)
 };
 
 ko.applyBindings(new ViewModel());

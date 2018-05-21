@@ -1,58 +1,92 @@
 var map;
-function initMap() {
+var infowindow;
+
+var mapMarkers = [];
+
+var coffeeshops = cafeJS;
+var currentMarker;
+
+
+function initializeMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
         center: { lat: 47.62, lng: -122.27 }
     });
+    infowindow = new google.maps.InfoWindow({
+        content: '',
+        maxWidth: 250
+    });
+    for (i = 0; i < coffeeshops.length; i++) {
+        addMarker(coffeeshops[i]);
+    }
+}
 
-    var redIcon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-    var greenIcon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+function addMarker(cafe) {
 
-    var coffeeshops = cafeData;
-    coffeeshops.forEach(cafe => {
-        var infowindow = new google.maps.InfoWindow({
-            content: '<b>' + cafe.name + '</b><br/>' + cafe.description,
-            maxWidth: 200
-        });
-        var marker = new google.maps.Marker({
-            position: cafe.coords,
-            map: map,
-            title: cafe.name,
-            animation: google.maps.Animation.DROP,
-            icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-        });
-        marker.addListener('click', toggleBalloon);
-        marker.addListener('click', toggleBounce);
-        infowindow.addListener('closeclick', function() {
-            if (marker.getIcon() == greenIcon) {
-                marker.setIcon(redIcon)
+    var content = '<b>' + cafe.name + '</b><br/>' + cafe.description;
+
+    marker = new google.maps.Marker({
+        position: cafe.coords,
+        map: map,
+        title: cafe.name,
+        milk: cafe.milk,
+        animation: google.maps.Animation.DROP,
+        icon: "../static/icons/red-icon.png"
+    });
+
+    mapMarkers.push(marker);
+
+    // Marker click listener
+    google.maps.event.addListener(marker, 'click', (function (marker, content) {
+        return function () {
+            if (currentMarker) {
+                currentMarker.setIcon("../static/icons/red-icon.png")
             }
-            if (marker.getAnimation() !== null) {
-                marker.setAnimation(null);
-              }
-        })
+            marker.setIcon("../static/icons/green-icon.png")
+            currentMarker = marker;
+            infowindow.setContent(content);
+            infowindow.open(map, marker);
+        }
+    })(marker, content));
 
-        function toggleBounce() {
-            if (marker.getAnimation() !== null) {
-              marker.setAnimation(null);
-            } else {
-              marker.setAnimation(google.maps.Animation.BOUNCE);
-            }
-          }
-        function toggleBalloon() {
-            if (infowindow.isOpen()) {
-                infowindow.close();
-                marker.setIcon(redIcon)
-            } else {
-                infowindow.open(map, marker);
-                marker.setIcon(greenIcon)
+    google.maps.event.addListener(infowindow, 'closeclick', (function () {
+        return function () {
+            currentMarker.setIcon('../static/icons/red-icon.png');
+        }
+    })());
+
+    google.maps.event.addListener(marker, 'visible_changed', (function (marker) {
+        return function () {
+            infowindow.close();
+            if (currentMarker) {
+                currentMarker.setIcon('../static/icons/red-icon.png');
             }
         }
-    });
-    map.fit;
+    })(marker));
+}
 
-    google.maps.InfoWindow.prototype.isOpen = function(){
-        var map = this.getMap();
-        return (map !== null && typeof map !== "undefined");
+filterMarkers = function (milk) {
+    for (i = 0; i < mapMarkers.length; i++) {
+        marker = mapMarkers[i];
+        if (marker.milk.indexOf(milk) != -1 || milk == "All") {
+            marker.setVisible(true);
+        }
+        else {
+            marker.setVisible(false);
+        }
     }
+}
+
+triggerClickOnMarker = function(name) {
+    for (i = 0; i < mapMarkers.length; i++) {
+        marker = mapMarkers[i];
+        if (marker.title == name) {
+            google.maps.event.trigger(marker, 'click', {});
+        }
+    }
+}
+try {
+    initializeMap();
+} catch (err) {
+    console.log()
 }
