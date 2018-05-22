@@ -3,6 +3,7 @@ var cafeData = [
         name: "Cafe Cesura",
         milk: "oat, almond, coconut, hemp, soy",
         coords: {lat:47.619603, lng:-122.196805},
+        twitter_id: "CafeCesura",
         description: "Single-origin coffees, loose-leaf teas & creative sandwiches offered in a cool, clean-lined cafe."
     },
     {
@@ -44,7 +45,7 @@ var cafeData = [
     {
         name: "Starbucks Reverve",
         milk: "soy, coconut, almond",
-        coords: {lat:47.614002, lng:122.328433},
+        coords: {lat:47.614002, lng:-122.328433},
         description: "Seattle-based coffeehouse chain known for its signature roasts, light bites and WiFi availability."
     },
     {
