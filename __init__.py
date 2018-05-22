@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template, redirect, request, url_for, jsonify
+from flask import Response
 import urllib
 import httplib2
 
@@ -23,8 +24,12 @@ def getPlaceInfo():
     url = 'https://api.yelp.com/v3/businesses/search?term=' + term + '&location=' + location  
     url = url.replace(' ', '%20')
     _, content = http.request(url, 'GET', headers=headers)
-    return content, {'Content-Type': 'application/json; charset=utf-8'}
+    
+    r = Response(response=content, status=200, mimetype="application/json")
+    r.headers["Content-Type"] = "application/json; charset=utf-8"
+    return r
 
 
 if __name__ == "__main__":
     app.run()
+
