@@ -1,9 +1,6 @@
-#!/usr/bin/python3
-
 from flask import Flask
 from flask import render_template, redirect, request, url_for, jsonify
 import urllib
-from urllib.parse import quote
 import httplib2
 
 app = Flask(__name__)
