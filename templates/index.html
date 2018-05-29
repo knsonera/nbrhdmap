@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Seattle's Coffee</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <!-- Latest compiled and minified CSS -->
@@ -23,22 +21,27 @@
 
 <body>
     <div class="container">
+        <!-- header -->
         <nav class="navbar fixed-top flex-md-nowrap">
             <a class="navbar-brand" href="http://map.uzhvieva.com/">
                 <img class="map-icon" src="../static/icons/coffee.png">
             </a>
             <a class="navbar-brand nav-text" href="">Seattle's Coffee</a>
+            <!-- sidebar toggler -->
             <button type="button" id="sidebarCollapse" class="btn navbar-btn">
                 <i data-feather="list"></i>
             </button>
         </nav>
 
         <div class="wrapper">
+            <!-- map -->
             <main role="main" id="map" class="active">
             </main>
+            <!-- sidebar -->
             <nav id="sidebar" class="active">
                 <div class="sidebar-header">
                     <span class="list-title">Coffee shops</span>
+                    <!-- filters -->
                     <div class="dropdown">
                         <button type="button" class="btn dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i data-feather="filter"></i>
@@ -83,6 +86,7 @@
                         </div>
                         <span class="no-result" data-bind="visible: filteredCafe().length == 0">No Results</span>
                     </div>
+                    <!-- list of places -->
                     <ul class="nav place-list" data-bind="foreach: filteredCafe">
                         <li class="nav-item">
                             <a class="nav-link coffeeshop" href="#" data-bind="text: name" onclick="triggerClickOnMarker(this.text)">
@@ -101,5 +105,4 @@
         feather.replace()
     </script>
 </body>
-
 </html>

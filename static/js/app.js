@@ -85,11 +85,6 @@ var ViewModel = function () {
         }
     });
 
-    //this.currentCafe = ko.observable(this.filteredCafe()[0]);
-    //this.setCafe = function (clickedCafe) {
-    //    self.currentCafe(clickedCafe);
-    //};
-    
     this.getFilteredCafe = function() {
         return this.filteredCafe;
     }

@@ -6,6 +6,8 @@ var mapMarkers = [];
 var coffeeshops = cafeJS;
 var currentMarker;
 
+// create Map, InfoWindow object add markers to the map
+
 function initializeMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
@@ -19,6 +21,8 @@ function initializeMap() {
         addMarker(coffeeshops[i]);
     }
 }
+
+// create markers with custom attributes
 
 function addMarker(cafe) {
 
@@ -35,20 +39,30 @@ function addMarker(cafe) {
         location: cafe.coords.lat + "," + cafe.coords.lng
     });
 
+    // add markers to the map
     mapMarkers.push(marker);
 
-    // Marker click listener
+    // add click listener
+
     google.maps.event.addListener(marker, 'click', (function (marker, content) {
         return function () {
+            // change current marker icon color to red 
             if (currentMarker) {
                 currentMarker.setIcon("../static/icons/red-icon.png")
             }
+            // set marker color to green
             marker.setIcon("../static/icons/green-icon.png")
+
+            // remember current marker
             currentMarker = marker;
+
+            // set infowindow content and open infowindow
             infowindow.setContent(content);
             infowindow.open(map, marker);
 
+            // Yelp data about the place
             $.ajax({
+                // request data from backend
                 url: '/api/get/place',
                 dataType: 'json',
                 data: { "term": marker.title, "location": marker.location},
@@ -58,21 +72,25 @@ function addMarker(cafe) {
                     var rating = '<br><div><b>Rating:</b> ' + json.businesses[0].rating + ' (based on ' + json.businesses[0].review_count + ' reviews)</div>'
                     var price = '<div><b>Price:</b> ' + json.businesses[0].price + '</div>'
                     var yelp = '<div><a href="' + json.businesses[0].url + '">Go to Yelp</a></div>'
+                    // add yelp data to infowindow
                     infowindow.setContent(content + image + rating + price + yelp)
                 }
             }); 
 
+            // highlight current marker in the sidebar
             highlightItem(marker.title);
 
         }
     })(marker, content));
 
+    // change icon color if user closes infowindow
     google.maps.event.addListener(infowindow, 'closeclick', (function () {
         return function () {
             currentMarker.setIcon('../static/icons/red-icon.png');
         }
     })());
 
+    // if marker is not visible, close infowindow and change icon color
     google.maps.event.addListener(marker, 'visible_changed', (function (marker) {
         return function () {
             infowindow.close();
@@ -83,6 +101,7 @@ function addMarker(cafe) {
     })(marker));
 }
 
+// filter markers on the map 
 filterMarkers = function (milk) {
     for (i = 0; i < mapMarkers.length; i++) {
         marker = mapMarkers[i];
@@ -95,6 +114,7 @@ filterMarkers = function (milk) {
     }
 }
 
+// click on the marker if user clicks on list item
 triggerClickOnMarker = function (name) {
     var clicked;
     for (i = 0; i < mapMarkers.length; i++) {
@@ -106,6 +126,7 @@ triggerClickOnMarker = function (name) {
     }
 }
 
+// add toggler for sidebar/map ratio
 initializePage = function() {
     $('#sidebarCollapse').on('click', function () {
         $('#sidebar').toggleClass('active');
@@ -113,6 +134,7 @@ initializePage = function() {
     });
 }
 
+// change list item style, if user clicks on the marker
 highlightItem = function(item) {
     $('.coffeeshop').css('font-weight', 'normal');
     $('.coffeeshop').css('color', 'teal');
@@ -122,8 +144,10 @@ highlightItem = function(item) {
     $('.coffeeshop:contains("'+ item +'")').css('background-color', '#eee');
 }
 
+// when dom is ready, add toggler
 $(document).ready(initializePage);
 
+// add map to the dom
 try {
     initializeMap();
 } catch (err) {
