@@ -65,8 +65,8 @@ function addMarker(cafe) {
                 // request data from backend
                 url: '/api/get/place',
                 dataType: 'json',
-                data: { "term": marker.title, "location": marker.location},
-                success: function(json) {
+                data: { "term": marker.title, "location": marker.location },
+                success: function (json) {
                     var content = infowindow.getContent()
                     var image = '<br><img height="100" width="100" src="' + json.businesses[0].image_url + '">'
                     var rating = '<br><div><b>Rating:</b> ' + json.businesses[0].rating + ' (based on ' + json.businesses[0].review_count + ' reviews)</div>'
@@ -75,7 +75,7 @@ function addMarker(cafe) {
                     // add yelp data to infowindow
                     infowindow.setContent(content + image + rating + price + yelp)
                 }
-            }); 
+            });
 
             // highlight current marker in the sidebar
             highlightItem(marker.title);
@@ -127,7 +127,7 @@ triggerClickOnMarker = function (name) {
 }
 
 // add toggler for sidebar/map ratio
-initializePage = function() {
+initializePage = function () {
     $('#sidebarCollapse').on('click', function () {
         $('#sidebar').toggleClass('active');
         $('#map').toggleClass('active');
@@ -135,13 +135,13 @@ initializePage = function() {
 }
 
 // change list item style, if user clicks on the marker
-highlightItem = function(item) {
+highlightItem = function (item) {
     $('.coffeeshop').css('font-weight', 'normal');
     $('.coffeeshop').css('color', 'teal');
     $('.coffeeshop').css('background-color', 'inherit');
-    $('.coffeeshop:contains("'+ item +'")').css('font-weight', 'bold');
-    $('.coffeeshop:contains("'+ item +'")').css('color', '#551A8B');
-    $('.coffeeshop:contains("'+ item +'")').css('background-color', '#eee');
+    $('.coffeeshop:contains("' + item + '")').css('font-weight', 'bold');
+    $('.coffeeshop:contains("' + item + '")').css('color', '#551A8B');
+    $('.coffeeshop:contains("' + item + '")').css('background-color', '#eee');
 }
 
 // when dom is ready, add toggler
