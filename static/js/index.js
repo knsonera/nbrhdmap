@@ -174,6 +174,6 @@ $(document).ready(initializePage);
 try {
     initializeMap();
 } catch (err) {
-    console.log('Sorry, Google Maps are not available at this time.')
+    console.log()
 }
 
