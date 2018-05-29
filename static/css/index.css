@@ -118,9 +118,19 @@ body .container {
     color: teal;
 }
 
-.nav-item .active {
+.coffeeshop-clicked{
+    background-color: #eee;
     font-weight: bold;
-    color: black;
+}
+
+.coffeeshop:active {
+    font-weight: bold;
+}
+.coffeeshop:focus {
+    font-weight: bold;
+}
+.coffeeshop:hover {
+    font-weight: bold;
 }
 
 .filter-category {

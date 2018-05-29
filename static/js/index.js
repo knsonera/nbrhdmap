@@ -62,8 +62,8 @@ function addMarker(cafe) {
                 }
             }); 
 
-            //$(".list-group list-group-item").removeClass("active");
-            //$( "div:contains('John')" ).addClass("active");
+            highlightItem(marker.title);
+
         }
     })(marker, content));
 
@@ -105,6 +105,16 @@ triggerClickOnMarker = function (name) {
         }
     }
 }
+
+highlightItem = function(item) {
+    $('.coffeeshop').css('font-weight', 'normal');
+    $('.coffeeshop').css('color', 'teal');
+    $('.coffeeshop').css('background-color', 'inherit');
+    $('.coffeeshop:contains("'+ item +'")').css('font-weight', 'bold');
+    $('.coffeeshop:contains("'+ item +'")').css('color', '#551A8B');
+    $('.coffeeshop:contains("'+ item +'")').css('background-color', '#eee');
+}
+
 try {
     initializeMap();
 } catch (err) {
