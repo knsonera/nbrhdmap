@@ -61,6 +61,9 @@ function addMarker(cafe) {
                     infowindow.setContent(content + image + rating + price + yelp)
                 }
             }); 
+
+            //$(".list-group list-group-item").removeClass("active");
+            //$( "div:contains('John')" ).addClass("active");
         }
     })(marker, content));
 

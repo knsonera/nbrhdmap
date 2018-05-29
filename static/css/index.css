@@ -118,8 +118,9 @@ body .container {
     color: teal;
 }
 
-.nav-link .active {
+.nav-item .active {
     font-weight: bold;
+    color: black;
 }
 
 .filter-category {

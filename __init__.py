@@ -10,10 +10,6 @@ app = Flask(__name__)
 def showMainPage():
     return render_template('index.html')
 
-@app.route("/signin")
-def showSignIn():
-    return render_template('signin.html')
-
 @app.route("/api/get/place")
 def getPlaceInfo():
     term = request.args.get('term')
