@@ -106,6 +106,13 @@ triggerClickOnMarker = function (name) {
     }
 }
 
+initializePage = function() {
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        $('#map').toggleClass('active');
+    });
+}
+
 highlightItem = function(item) {
     $('.coffeeshop').css('font-weight', 'normal');
     $('.coffeeshop').css('color', 'teal');
@@ -115,8 +122,11 @@ highlightItem = function(item) {
     $('.coffeeshop:contains("'+ item +'")').css('background-color', '#eee');
 }
 
+$(document).ready(initializePage);
+
 try {
     initializeMap();
 } catch (err) {
     console.log()
 }
+
