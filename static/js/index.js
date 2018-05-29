@@ -35,7 +35,6 @@ function addMarker(cafe) {
         milk: cafe.milk,
         animation: google.maps.Animation.DROP,
         icon: "../static/icons/red-icon.png",
-        twitter: cafe.twitter_id,
         location: cafe.coords.lat + "," + cafe.coords.lng
     });
 
@@ -61,6 +60,7 @@ function addMarker(cafe) {
             infowindow.open(map, marker);
 
             // Yelp data about the place
+            // TODO: show information on the page even if map is not available
             $.ajax({
                 // request data from backend
                 url: '/api/get/place',
