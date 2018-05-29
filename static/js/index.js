@@ -68,12 +68,31 @@ function addMarker(cafe) {
                 data: { "term": marker.title, "location": marker.location },
                 success: function (json) {
                     var content = infowindow.getContent()
-                    var image = '<br><img height="100" width="100" src="' + json.businesses[0].image_url + '">'
-                    var rating = '<br><div><b>Rating:</b> ' + json.businesses[0].rating + ' (based on ' + json.businesses[0].review_count + ' reviews)</div>'
-                    var price = '<div><b>Price:</b> ' + json.businesses[0].price + '</div>'
-                    var yelp = '<div><a href="' + json.businesses[0].url + '">Go to Yelp</a></div>'
-                    // add yelp data to infowindow
-                    infowindow.setContent(content + image + rating + price + yelp)
+                    // if json contains businesses, add data to infowindow
+                    if (json.businesses[0]) {
+                        var image = '';
+                        var rating = '';
+                        var price = '';
+                        var yelp = '';
+                        if (json.businesses[0].image_url) {
+                            image = '<br><img height="100" width="100" src="' + json.businesses[0].image_url + '">'
+                        }
+                        if (json.businesses[0].rating) {
+                            rating = '<br><div><b>Rating:</b> ' + json.businesses[0].rating + ' (based on ' + json.businesses[0].review_count + ' reviews)</div>'
+                        }
+                        if (json.businesses[0].price) {
+                            price = '<div><b>Price:</b> ' + json.businesses[0].price + '</div>'
+                        }
+                        if (json.businesses[0].url) {
+                            yelp = '<div><a href="' + json.businesses[0].url + '">Go to Yelp</a></div>'
+                        }
+                        // add yelp data to infowindow
+                        infowindow.setContent(content + image + rating + price + yelp)
+                    } else {
+                        var nodata = '<br><div></div>'
+                        infowindow.setContent(content + nodata)
+                    }
+
                 }
             });
 
@@ -103,25 +122,29 @@ function addMarker(cafe) {
 
 // filter markers on the map 
 filterMarkers = function (milk) {
-    for (i = 0; i < mapMarkers.length; i++) {
-        marker = mapMarkers[i];
-        if (marker.milk.indexOf(milk) != -1 || milk == "All") {
-            marker.setVisible(true);
-        }
-        else {
-            marker.setVisible(false);
+    if (typeof google === 'object' && typeof google.maps === 'object') {
+        for (i = 0; i < mapMarkers.length; i++) {
+            marker = mapMarkers[i];
+            if (marker.milk.indexOf(milk) != -1 || milk == "All") {
+                marker.setVisible(true);
+            }
+            else {
+                marker.setVisible(false);
+            }
         }
     }
 }
 
-// click on the marker if user clicks on list item
+// trigger click on the marker if user clicks on list item
 triggerClickOnMarker = function (name) {
-    var clicked;
-    for (i = 0; i < mapMarkers.length; i++) {
-        marker = mapMarkers[i];
-        if (marker.title == name) {
-            clicked = marker;
-            google.maps.event.trigger(marker, 'click', {});
+    if (typeof google === 'object' && typeof google.maps === 'object') {
+        var clicked;
+        for (i = 0; i < mapMarkers.length; i++) {
+            marker = mapMarkers[i];
+            if (marker.title == name) {
+                clicked = marker;
+                google.maps.event.trigger(marker, 'click', {});
+            }
         }
     }
 }
@@ -151,6 +174,6 @@ $(document).ready(initializePage);
 try {
     initializeMap();
 } catch (err) {
-    console.log()
+    console.log('Sorry, Google Maps are not available at this time.')
 }
 
