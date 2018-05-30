@@ -62,7 +62,6 @@ function addMarker(cafe) {
             infowindow.open(map, marker);
 
             // Yelp data about the place
-            // TODO: show information on the page even if map is not available
             $.ajax({
                 // request data from backend
                 url: '/api/get/place',
@@ -149,48 +148,6 @@ triggerClickOnMarker = function (name) {
             }
         }
     } else {
-        var loc = "47.62,-122.27";
-        noMapDataElement = '';
-        highlightItem(name);
-        $.ajax({
-            // request data from backend
-            url: '/api/get/place',
-            dataType: 'json',
-            data: { "term": name, "location": loc },
-            success: function (json) {
-                // if json contains businesses, add data to infowindow
-                if (json.businesses[0]) {
-                    var image = '<br><img height="100" width="100" src="../static/pics/coffee-placeholder.jpg">';
-                    var rating = '<br><div><b>Rating:</b> (based on reviews)</div>';
-                    var price = '<div><b>Price:</b></div>';
-                    var yelp = '<div><a href="">Go to Yelp</a></div>';
-                    if (json.businesses[0].image_url) {
-                        image = '<br><img height="100" width="100" src="' + json.businesses[0].image_url + '">';
-                    }
-                    if (json.businesses[0].rating) {
-                        rating = '<br><div><b>Rating:</b> ' + json.businesses[0].rating + ' (based on ' + json.businesses[0].review_count + ' reviews)</div>';
-                    }
-                    if (json.businesses[0].price) {
-                        price = '<div><b>Price:</b> ' + json.businesses[0].price + '</div>';
-                    }
-                    if (json.businesses[0].url) {
-                        yelp = '<div><a href="' + json.businesses[0].url + '">Go to Yelp</a></div>';
-                    }
-                    // add yelp data to infowindow
-                    noMapDataElement = image + rating + price + yelp;
-                } else {
-                    var nodata = '<br><div></div>';
-                    noMapDataElement = nodata;
-                }
-                document.getElementById('yelp').createTextNode = noMapDataElement;
-            },
-            error: function() {
-                var nodata = 'No data from Yelp.com is available at this time.'
-                noMapDataElement = nodata;
-                //document.getElementById('yelp').createTextNode = noMapDataElement;
-            }
-        });
-
         try {
             document.getElementById("cafe").removeClass('map-loaded');
         } catch(e) {
