@@ -38,8 +38,27 @@
             <!-- map -->
             <main role="main" id="map" class="active">
                 <div class="no-map-container map-loaded" id="cafe" data-bind="with: currentCafe">
-                    <h3 class="no-map cafe-name" data-bind="text: name"></h2>
-                    <p class="no-map cafe-description" data-bind="text: description"></p>
+                    <div class="no-map cafe-info">
+                        <h3 class="no-map cafe-name" data-bind="text: name"></h3>
+                        <p class="no-map cafe-description" data-bind="text: description"></p>
+                        <!-- ko if: yelpData -->
+                            <!-- ko if: yelpData.imageUrl -->
+                                <br><img class="no-map cafe-image" data-bind="attr: {src: yelpData.imageUrl}" height="100" width="100" src="../static/pics/coffee-placeholder.jpg">
+                            <!-- /ko -->
+                            <!-- ko if: yelpData.rating -->
+                                <br><p class="no-map cafe-rating" data-bind="text: yelpData.rating"><b>Rating:</b></p>
+                            <!-- /ko -->
+                            <!-- ko if: yelpData.reviewCount -->
+                                <br><p class="no-map cafe-reviews" data-bind="text: yelpData.reviewCount"><b>Reviews:</b></p>
+                            <!-- /ko -->
+                            <!-- ko if: yelpData.price -->
+                                <br><p class="no-map cafe-price" data-bind="text: yelpData.price"><b>Price:</b></p>'
+                            <!-- /ko -->
+                            <!-- ko if: yelpData.yelpUrl -->
+                                <br><a class="no-map cafe-yelp" data-bind="attr: {href: yelpData.yelpUrl}" href="">Go to Yelp</a>'
+                            <!-- /ko -->
+                        <!-- /ko -->
+                    </div>
                 </div>
             </main>
             <!-- sidebar -->
@@ -102,6 +121,7 @@
             </div>
         </div>
     </div>
+    <script src="../static/js/utils.js" type="text/javascript"></script>    
     <script src="../static/js/app.js" type="text/javascript"></script>
     <script src="../static/js/index.js" type="text/javascript"></script>
     <script async src="https://maps.111googleapis.com/maps/api/js?key=AIzaSyAJu-DuGHp_7ffUNx7gBQNNoangphWaOVE&callback=initializeMap">

@@ -164,6 +164,10 @@ body .container {
     width: 450px;
 }
 
+.yelp-data-container {
+    display: block;
+}
+
 /* MAP */
 
 #map {
