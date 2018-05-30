@@ -6,8 +6,6 @@ var mapMarkers = [];
 var coffeeshops = cafeJS;
 var currentMarker;
 
-var noMapDataElement;
-
 // create Map, InfoWindow object add markers to the map
 
 function initializeMap() {
@@ -44,7 +42,6 @@ function addMarker(cafe) {
     mapMarkers.push(marker);
 
     // add click listener
-
     google.maps.event.addListener(marker, 'click', (function (marker, content) {
         return function () {
             // change current marker icon color to red 
@@ -76,19 +73,27 @@ function addMarker(cafe) {
                         var price = '';
                         var yelp = '';
                         if (json.businesses[0].image_url) {
-                            image = '<br><img height="100" width="100" src="' + json.businesses[0].image_url + '">'
+                            image = '<br><img height="100" width="100" src="' + 
+                                    + json.businesses[0].image_url + '">'
                         }
                         if (json.businesses[0].rating) {
-                            rating = '<br><div><b>Rating:</b> ' + json.businesses[0].rating + ' (based on ' + json.businesses[0].review_count + ' reviews)</div>'
+                            rating = '<br><div><b>Rating:</b> ' + 
+                                     + json.businesses[0].rating + 
+                                     + ' (based on ' + 
+                                     + json.businesses[0].review_count + 
+                                     + ' reviews)</div>'
                         }
                         if (json.businesses[0].price) {
-                            price = '<div><b>Price:</b> ' + json.businesses[0].price + '</div>'
+                            price = '<div><b>Price:</b> ' + 
+                                    + json.businesses[0].price + '</div>'
                         }
                         if (json.businesses[0].url) {
-                            yelp = '<div><a href="' + json.businesses[0].url + '">Go to Yelp</a></div>'
+                            yelp = '<div><a href="' + json.businesses[0].url +
+                                    + '">Go to Yelp</a></div>'
                         }
                         // add yelp data to infowindow
-                        infowindow.setContent(content + image + rating + price + yelp)
+                        infowindow.setContent(content + image + rating + 
+                                              + price + yelp)
                     } else {
                         var nodata = '<br><div></div>'
                         infowindow.setContent(content + nodata)
@@ -111,7 +116,7 @@ function addMarker(cafe) {
     })());
 
     // if marker is not visible, close infowindow and change icon color
-    google.maps.event.addListener(marker, 'visible_changed', (function (marker) {
+    google.maps.event.addListener(marker, 'visible_changed', (function (marker){
         return function () {
             infowindow.close();
             if (currentMarker) {
@@ -148,13 +153,16 @@ triggerClickOnMarker = function (name) {
             }
         }
     } else {
-        highlightItem(name);
+        // if Google Maps API doesn't work, 
+        // show information about clicked item in the DOM
         try {
             document.getElementById("cafe").removeClass('map-loaded');
-        } catch(e) {
+        } catch (e) {
             console.log();
         }
-        
+        // highlight list item on click
+        highlightItem(name);
+
     }
 }
 

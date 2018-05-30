@@ -139,6 +139,8 @@ body .container {
     margin-left: 5px;
 }
 
+/* If Google Maps API doesn't respond */
+
 .no-result {
     font-size: 16px;
     float: left;
