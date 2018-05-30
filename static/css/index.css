@@ -146,12 +146,30 @@ body .container {
     margin-left: 10px;
 }
 
+.no-map-container {
+    padding: 0px 20px 20px 40px;
+}
+
+.no-map-container .map-loaded {
+    display: none;
+}
+
+.no-map.cafe-name {
+    color: teal;
+}
+
+.no-map.cafe-description {
+    font-size: 16px;
+    color: rgb(5, 78, 78);
+    width: 450px;
+}
+
 /* MAP */
 
 #map {
     width: 100%;
     margin-right: 250px;
-    background: papayawhip;
+    background: lightgrey;
     min-height: 92vh;
     transition: all 0.3s;
 }

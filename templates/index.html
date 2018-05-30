@@ -37,6 +37,10 @@
         <div class="wrapper">
             <!-- map -->
             <main role="main" id="map" class="active">
+                <div class="no-map-container map-loaded" id="cafe" data-bind="with: currentCafe">
+                    <h3 class="no-map cafe-name" data-bind="text: name"></h2>
+                    <p class="no-map cafe-description" data-bind="text: description"></p>
+                </div>
             </main>
             <!-- sidebar -->
             <nav id="sidebar" class="active">
@@ -90,7 +94,7 @@
                     <!-- list of places -->
                     <ul class="nav place-list" data-bind="foreach: filteredCafe">
                         <li class="nav-item">
-                            <a class="nav-link coffeeshop" href="#" data-bind="text: name" onclick="triggerClickOnMarker(this.text)">
+                            <a class="nav-link coffeeshop" href="#" data-bind="text: name, click: $parent.setCafe" onclick="triggerClickOnMarker(this.text)">
                             </a>
                         </li>
                     </ul>
@@ -100,7 +104,7 @@
     </div>
     <script src="../static/js/app.js" type="text/javascript"></script>
     <script src="../static/js/index.js" type="text/javascript"></script>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJu-DuGHp_7ffUNx7gBQNNoangphWaOVE&callback=initializeMap">
+    <script async src="https://maps.111googleapis.com/maps/api/js?key=AIzaSyAJu-DuGHp_7ffUNx7gBQNNoangphWaOVE&callback=initializeMap">
     </script>
     <script>
         feather.replace()

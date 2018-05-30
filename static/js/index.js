@@ -6,6 +6,8 @@ var mapMarkers = [];
 var coffeeshops = cafeJS;
 var currentMarker;
 
+var noMapDataElement;
+
 // create Map, InfoWindow object add markers to the map
 
 function initializeMap() {
@@ -146,6 +148,54 @@ triggerClickOnMarker = function (name) {
                 google.maps.event.trigger(marker, 'click', {});
             }
         }
+    } else {
+        var loc = "47.62,-122.27";
+        noMapDataElement = '';
+        $.ajax({
+            // request data from backend
+            url: '/api/get/place',
+            dataType: 'json',
+            data: { "term": name, "location": loc },
+            success: function (json) {
+                // if json contains businesses, add data to infowindow
+                if (json.businesses[0]) {
+                    var image = '';
+                    var rating = '';
+                    var price = '';
+                    var yelp = '';
+                    if (json.businesses[0].image_url) {
+                        image = '<br><img height="100" width="100" src="' + json.businesses[0].image_url + '">'
+                    }
+                    if (json.businesses[0].rating) {
+                        rating = '<br><div><b>Rating:</b> ' + json.businesses[0].rating + ' (based on ' + json.businesses[0].review_count + ' reviews)</div>'
+                    }
+                    if (json.businesses[0].price) {
+                        price = '<div><b>Price:</b> ' + json.businesses[0].price + '</div>'
+                    }
+                    if (json.businesses[0].url) {
+                        yelp = '<div><a href="' + json.businesses[0].url + '">Go to Yelp</a></div>'
+                    }
+                    // add yelp data to infowindow
+                    noMapDataElement = image + rating + price + yelp
+                } else {
+                    var nodata = '<br><div></div>'
+                    noMapDataElement = nodata
+                }
+            }
+        });
+
+        // TODO: search for existing elements and delete them
+        // TODO: change DOM using Knockout.js
+        var noDataNode = document.createElement('div');
+        noDataNode.innerHTML = noMapDataElement;
+        noDataNode.className = "yelp-data";
+        document.getElementById("cafe").appendChild(noDataNode);
+        try {
+            document.getElementById("cafe").removeClass('map-loaded');
+        } catch(e) {
+            console.log();
+        }
+        
     }
 }
 

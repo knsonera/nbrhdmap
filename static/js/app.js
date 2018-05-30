@@ -3,7 +3,6 @@ var cafeData = [
         name: "Cafe Cesura",
         milk: "oat, almond, coconut, hemp, soy",
         coords: { lat: 47.619603, lng: -122.196805 },
-        twitter_id: "CafeCesura",
         description: "Single-origin coffees, loose-leaf teas & creative sandwiches offered in a cool, clean-lined cafe."
     },
     {
@@ -84,6 +83,11 @@ var ViewModel = function () {
             return result;
         }
     });
+
+    this.currentCafe = ko.observable( this.filteredCafe()[0] );
+    this.setCafe = function(clickedCafe) {
+        self.currentCafe(clickedCafe);
+    };
 
     this.getFilteredCafe = function () {
         return this.filteredCafe;
