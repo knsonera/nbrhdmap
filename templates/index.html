@@ -43,19 +43,21 @@
                         <p class="no-map cafe-description" data-bind="text: description"></p>
                         <!-- ko if: yelpData -->
                             <!-- ko if: yelpData.imageUrl -->
-                                <br><img class="no-map cafe-image" data-bind="attr: {src: yelpData.imageUrl}" height="100" width="100" src="../static/pics/coffee-placeholder.jpg">
+                                <img class="no-map cafe-image" data-bind="attr: {src: yelpData.imageUrl}" src="../static/pics/coffee-placeholder.jpg">
                             <!-- /ko -->
                             <!-- ko if: yelpData.rating -->
-                                <br><p class="no-map cafe-rating" data-bind="text: yelpData.rating"><b>Rating:</b></p>
-                            <!-- /ko -->
-                            <!-- ko if: yelpData.reviewCount -->
-                                <br><p class="no-map cafe-reviews" data-bind="text: yelpData.reviewCount"><b>Reviews:</b></p>
+                                <p> 
+                                    <span class="no-map cafe-desc-title">Rating: </span>
+                                    <span class="no-map cafe-description" data-bind="text: yelpData.rating"></span>
                             <!-- /ko -->
                             <!-- ko if: yelpData.price -->
-                                <br><p class="no-map cafe-price" data-bind="text: yelpData.price"><b>Price:</b></p>'
+                                <p>
+                                    <span class="no-map cafe-desc-title">Price: </span>
+                                    <span class="no-map cafe-description" data-bind="text: yelpData.price"></span>
+                                </p>
                             <!-- /ko -->
                             <!-- ko if: yelpData.yelpUrl -->
-                                <br><a class="no-map cafe-yelp" data-bind="attr: {href: yelpData.yelpUrl}" href="">Go to Yelp</a>'
+                                <a class="no-map cafe-yelp-link" data-bind="attr: {href: yelpData.yelpUrl}" href="">Go to Yelp</a>
                             <!-- /ko -->
                         <!-- /ko -->
                     </div>

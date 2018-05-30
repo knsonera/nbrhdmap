@@ -28,7 +28,7 @@ function loadYelpDataForCafe(cafe, loaded) {
             }
         },
         error: function() {
-            console.log('yelp is not available')
+            console.log()
         }
     });
 }

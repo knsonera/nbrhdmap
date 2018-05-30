@@ -164,6 +164,27 @@ body .container {
     width: 450px;
 }
 
+.no-map.cafe-desc-title {
+    font-size: 16px;
+    color: rgb(5, 78, 78);
+    width: 450px;
+    font-weight: bold;
+}
+
+.no-map.cafe-yelp-link {
+    font-size: 16px;
+    color: rgb(21, 160, 160);
+    width: 450px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.no-map.cafe-image {
+    width: 200px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .yelp-data-container {
     display: block;
 }
