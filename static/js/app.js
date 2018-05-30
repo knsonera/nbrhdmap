@@ -100,46 +100,52 @@ var ViewModel = function () {
 
     this.currentCafe = ko.observable( this.filteredCafe()[0] );
 
-    this.selectCafe = function(cafe) {
-        loadYelpDataForCafe(cafe, function(data) {
-            cafe.yelpData = {
+    //this.selectCafe = function(cafe) {
+    //    loadYelpDataForCafe(cafe, function(data) {
+    //        cafe.yelpData = {
+    //            imageUrl: data.imageUrl,
+    //            rating: data.rating,
+    //            reviewCount: data.reviewCount,
+    //            price: data.price,
+    //            yelpUrl: data.yelpUrl
+    //        };
+    //        self.currentCafe(cafe);
+    //    });
+    //}
+
+    var firstCafe = this.filteredCafe()[0];
+    //this.selectCafe(firstCafe);
+    if (typeof google != 'object') {
+        loadYelpDataForCafe(firstCafe, function(data) {
+            firstCafe.yelpData = {
                 imageUrl: data.imageUrl,
                 rating: data.rating,
                 reviewCount: data.reviewCount,
                 price: data.price,
                 yelpUrl: data.yelpUrl
+
             };
-            self.currentCafe(cafe);
+            self.currentCafe(firstCafe);
         });
-    }
-
-    var firstCafe = this.filteredCafe()[0];
-    //this.selectCafe(firstCafe);
-    loadYelpDataForCafe(firstCafe, function(data) {
-        firstCafe.yelpData = {
-            imageUrl: data.imageUrl,
-            rating: data.rating,
-            reviewCount: data.reviewCount,
-            price: data.price,
-            yelpUrl: data.yelpUrl
-
-        };
+    } else {
         self.currentCafe(firstCafe);
-    });
+    }
 
     this.setCafe = function(clickedCafe) {
         // load data from yelp for clickedCafe
         self.currentCafe(clickedCafe);
-        loadYelpDataForCafe(clickedCafe, function(data) {
-            clickedCafe.yelpData = {
-                imageUrl: data.imageUrl,
-                rating: data.rating,
-                reviewCount: data.reviewCount,
-                price: data.price,
-                yelpUrl: data.yelpUrl
-            };
-            self.currentCafe(clickedCafe);
-        });
+        if (typeof google != 'object') {
+            loadYelpDataForCafe(clickedCafe, function(data) {
+                clickedCafe.yelpData = {
+                    imageUrl: data.imageUrl,
+                    rating: data.rating,
+                    reviewCount: data.reviewCount,
+                    price: data.price,
+                    yelpUrl: data.yelpUrl
+                };
+                self.currentCafe(clickedCafe);
+            });
+        }
     };
 
     this.getFilteredCafe = function () {
