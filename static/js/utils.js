@@ -28,7 +28,10 @@ function loadYelpDataForCafe(cafe, loaded) {
             }
         },
         error: function() {
-            console.log()
+            yelpData = {
+                imageUrl: '../static/pics/coffee-placeholder.jpg'
+            };
+            loaded(yelpData);
         }
     });
 }
