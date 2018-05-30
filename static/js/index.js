@@ -148,6 +148,7 @@ triggerClickOnMarker = function (name) {
             }
         }
     } else {
+        highlightItem(name);
         try {
             document.getElementById("cafe").removeClass('map-loaded');
         } catch(e) {
