@@ -1,7 +1,5 @@
 # Seattle's Coffee Map
 
-The app is available here: http://map.uzhvieva.com/
-
 This single-page app is a map of my favorite coffee shops in Seattle area.
 Choose any coffee shop on the map or sidebar to see information about the spot.
 This information includes:
@@ -9,6 +7,8 @@ This information includes:
 - rating, review count, pricing and image (from Yelp servers via Yelp Fusion)
 
 Map representation implemented via Google Maps API.
+
+The app is available here: http://map.uzhvieva.com/
 
 ## Main feature
 For all the non-dairy milk lovers there is an awesome feature -
