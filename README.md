@@ -32,7 +32,7 @@ both on the map and in the sidebar.
 2. Change directory to /vagrant (cd /vagrant)
 3. Clone the project code (git clone https://github.com/knsonera/nbrhdmap.git nmap)
 4. Change directory to nmap (cd nmap)
-5. Replace YELP_API_KEY with you valid Yelp API key (get the key here: https://www.yelp.com/developers/v3/manage_app).
+5. Replace YELP_API_KEY with your valid Yelp API key (get the key here: https://www.yelp.com/developers/v3/manage_app).
 6. Run server (python __init__.py)
 
 Now the app should be available here: http://localhost:5000/
