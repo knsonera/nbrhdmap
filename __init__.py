@@ -22,7 +22,7 @@ def getPlaceInfo():
 
     http = httplib2.Http()
     # headers of the request contain Yelp API key
-    headers = {'Authorization': 'Bearer VxWBShU6llLY7RgOEopfy2MYqNO2LVkrTEmX1vtGUUxBfSho6HJDZ6XL7bOtyAgm2glPJJC7pYBjqZa1gSuVCOd1pZ-3bzye1ex8GiD852FUP8b-WpZaToTO9WACW3Yx'}
+    headers = {'Authorization': 'Bearer ' + YELP_API_KEY}
     url = 'https://api.yelp.com/v3/businesses/search?term=' + \
         term + '&location=' + location
     # replacing spaces with url encoding
