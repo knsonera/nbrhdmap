@@ -1,4 +1,6 @@
-# Neighborhood Map Project: Seattle's Coffee
+# Seattle's Coffee Map
+
+The app is available here: http://map.uzhvieva.com/
 
 This single-page app is a map of my favorite coffee shops in Seattle area.
 Choose any coffee shop on the map or sidebar to see information about the spot.
@@ -24,3 +26,12 @@ both on the map and in the sidebar.
 - Bootstrap
 - jQuery
 - Flask
+
+## How to run the application locally
+1. Connect to vagrant machine (vagrant ssh)
+2. Change directory to /vagrant (cd /vagrant)
+3. Clone the project code (git clone https://github.com/knsonera/nbrhdmap.git nmap)
+4. Change directory to nmap (cd nmap)
+5. Run server (python __init__.py)
+
+Now the app should be available here: http://localhost:5000/
