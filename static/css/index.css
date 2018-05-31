@@ -139,8 +139,6 @@ body .container {
     margin-left: 5px;
 }
 
-/* If Google Maps API doesn't respond */
-
 .no-result {
     font-size: 16px;
     float: left;
@@ -220,5 +218,11 @@ html {
     }
     #sidebarCollapse span {
         display: none;
+    }
+}
+
+@media (max-width: 520px) {
+    .no-map.cafe-description {
+        width: 80vw;
     }
 }

@@ -82,6 +82,27 @@ var cafeJS = {};
 var ViewModel = function () {
     var self = this;
 
+    this.fetchSelectedCafeData = function(cafe) {
+        if(cafe.yelpData) {
+            self.currentCafe(cafe);
+        } else {
+            loadYelpDataForCafe(
+                cafe.name, 
+                cafe.coords.lat + ',' + cafe.coords.lng, 
+                function(data) {
+                    cafe.yelpData = {
+                        imageUrl: data.imageUrl,
+                        rating: data.rating,
+                        reviewCount: data.reviewCount,
+                        price: data.price,
+                        yelpUrl: data.yelpUrl
+                    };
+                    self.currentCafe(cafe);
+                }
+            );
+        }
+    }
+
     self.selectedMilk = ko.observable("All");
 
     self.filteredCafe = ko.computed(function () {
@@ -98,53 +119,34 @@ var ViewModel = function () {
         }
     });
 
-    this.currentCafe = ko.observable( this.filteredCafe()[0] );
-
-    //this.selectCafe = function(cafe) {
-    //    loadYelpDataForCafe(cafe, function(data) {
-    //        cafe.yelpData = {
-    //            imageUrl: data.imageUrl,
-    //            rating: data.rating,
-    //            reviewCount: data.reviewCount,
-    //            price: data.price,
-    //            yelpUrl: data.yelpUrl
-    //        };
-    //        self.currentCafe(cafe);
-    //    });
-    //}
-
     var firstCafe = this.filteredCafe()[0];
-    //this.selectCafe(firstCafe);
-    if (typeof google != 'object') {
-        loadYelpDataForCafe(firstCafe, function(data) {
-            firstCafe.yelpData = {
-                imageUrl: data.imageUrl,
-                rating: data.rating,
-                reviewCount: data.reviewCount,
-                price: data.price,
-                yelpUrl: data.yelpUrl
-
-            };
-            self.currentCafe(firstCafe);
-        });
-    } else {
-        self.currentCafe(firstCafe);
-    }
+    this.currentCafe = ko.observable(firstCafe);
+    this.fetchSelectedCafeData(firstCafe);
 
     this.setCafe = function(clickedCafe) {
-        // load data from yelp for clickedCafe
-        self.currentCafe(clickedCafe);
-        if (typeof google != 'object') {
-            loadYelpDataForCafe(clickedCafe, function(data) {
-                clickedCafe.yelpData = {
-                    imageUrl: data.imageUrl,
-                    rating: data.rating,
-                    reviewCount: data.reviewCount,
-                    price: data.price,
-                    yelpUrl: data.yelpUrl
-                };
-                self.currentCafe(clickedCafe);
-            });
+        if (typeof google === 'object' && typeof google.maps === 'object') {
+            for (i = 0; i < mapMarkers.length; i++) {
+                var marker = mapMarkers[i];
+                if (marker.title == clickedCafe.name) {
+                    google.maps.event.trigger(marker, 'click', {});
+                    break;
+                }
+            }
+        } else {
+            // no Google maps available
+            self.currentCafe(clickedCafe);
+            self.fetchSelectedCafeData(clickedCafe);
+
+            // if Google Maps API doesn't work, 
+            // show information about clicked item in the DOM
+            try {
+                document.getElementById("cafe").removeClass('map-loaded');
+            } catch (e) {
+                console.log();
+            }
+            // highlight list item on click
+            highlightItem(clickedCafe.name);
+    
         }
     };
 

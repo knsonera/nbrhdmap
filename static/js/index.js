@@ -28,7 +28,7 @@ function addMarker(cafe) {
 
     var content = '<b>' + cafe.name + '</b><br/>' + cafe.description;
 
-    marker = new google.maps.Marker({
+    var marker = new google.maps.Marker({
         position: cafe.coords,
         map: map,
         title: cafe.name,
@@ -58,49 +58,45 @@ function addMarker(cafe) {
             infowindow.setContent(content);
             infowindow.open(map, marker);
 
-            // Yelp data about the place
-            $.ajax({
-                // request data from backend
-                url: '/api/get/place',
-                dataType: 'json',
-                data: { "term": marker.title, "location": marker.location },
-                success: function (json) {
+            loadYelpDataForCafe(
+                marker.title, 
+                marker.location, 
+                function(data) {
                     var content = infowindow.getContent()
                     // if json contains businesses, add data to infowindow
-                    if (json.businesses[0]) {
+                    if (data && data.available) {
                         var image = '';
                         var rating = '';
                         var price = '';
                         var yelp = '';
-                        if (json.businesses[0].image_url) {
-                            image = '<br><img height="100" width="100" src="' + 
-                                    + json.businesses[0].image_url + '">'
+                        if (data.imageUrl) {
+                            image = '<br><img height="100" width="100" src="'
+                                    + data.imageUrl + '">';
                         }
-                        if (json.businesses[0].rating) {
-                            rating = '<br><div><b>Rating:</b> ' + 
-                                     + json.businesses[0].rating + 
-                                     + ' (based on ' + 
-                                     + json.businesses[0].review_count + 
-                                     + ' reviews)</div>'
+                        if (data.rating) {
+                            rating = '<br><div><b>Rating:</b> '
+                                     + data.rating
+                                     + ' (based on '
+                                     + data.reviewCount
+                                     + ' reviews)</div>';
                         }
-                        if (json.businesses[0].price) {
-                            price = '<div><b>Price:</b> ' + 
-                                    + json.businesses[0].price + '</div>'
+                        if (data.price) {
+                            price = '<div><b>Price:</b> '
+                                    + data.price + '</div>';
                         }
-                        if (json.businesses[0].url) {
-                            yelp = '<div><a href="' + json.businesses[0].url +
-                                    + '">Go to Yelp</a></div>'
+                        if (data.yelpUrl) {
+                            yelp = '<div><a href="' + data.yelpUrl
+                                    + '">Go to Yelp</a></div>';
                         }
                         // add yelp data to infowindow
-                        infowindow.setContent(content + image + rating + 
+                        infowindow.setContent(content + image + rating
                                               + price + yelp)
                     } else {
                         var nodata = '<br><div></div>'
                         infowindow.setContent(content + nodata)
                     }
-
                 }
-            });
+            );
 
             // highlight current marker in the sidebar
             highlightItem(marker.title);
@@ -138,31 +134,6 @@ filterMarkers = function (milk) {
                 marker.setVisible(false);
             }
         }
-    }
-}
-
-// trigger click on the marker if user clicks on list item
-triggerClickOnMarker = function (name) {
-    if (typeof google === 'object' && typeof google.maps === 'object') {
-        var clicked;
-        for (i = 0; i < mapMarkers.length; i++) {
-            marker = mapMarkers[i];
-            if (marker.title == name) {
-                clicked = marker;
-                google.maps.event.trigger(marker, 'click', {});
-            }
-        }
-    } else {
-        // if Google Maps API doesn't work, 
-        // show information about clicked item in the DOM
-        try {
-            document.getElementById("cafe").removeClass('map-loaded');
-        } catch (e) {
-            console.log();
-        }
-        // highlight list item on click
-        highlightItem(name);
-
     }
 }
 
