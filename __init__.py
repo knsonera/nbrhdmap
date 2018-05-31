@@ -6,6 +6,8 @@ import httplib2
 
 app = Flask(__name__)
 
+YELP_API_KEY = ''
+
 
 # render main page
 @app.route("/")

@@ -6,7 +6,7 @@ function loadYelpDataForCafe(name, location, loaded) {
         data: { "term": name, "location": location},
         success: function (json) {
             // if json contains businesses, add data to infowindow
-            if (json.businesses[0]) {
+            if ('businesses' in json && json.businesses[0]) {
                 imageUrl = json.businesses[0].image_url 
                            ? json.businesses[0].image_url 
                            : null;
