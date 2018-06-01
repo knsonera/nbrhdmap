@@ -44,12 +44,12 @@ function addMarker(cafe) {
     // add click listener
     google.maps.event.addListener(marker, 'click', (function (marker, content) {
         return function () {
-            // change current marker icon color to red 
+            // change current marker icon color to red
             if (currentMarker) {
-                currentMarker.setIcon("../static/icons/red-icon.png")
+                currentMarker.setIcon("../static/icons/red-icon.png");
             }
             // set marker color to green
-            marker.setIcon("../static/icons/green-icon.png")
+            marker.setIcon("../static/icons/green-icon.png");
 
             // remember current marker
             currentMarker = marker;
@@ -58,48 +58,73 @@ function addMarker(cafe) {
             infowindow.setContent(content);
             infowindow.open(map, marker);
 
+            var initialContent = infowindow.getContent();
+
             loadYelpDataForCafe(
-                marker.title, 
-                marker.location, 
+                marker.title,
+                marker.location,
                 function(data) {
-                    var content = infowindow.getContent()
-                    // if json contains businesses, add data to infowindow
-                    if (data && data.available) {
-                        var image = '';
-                        var rating = '';
-                        var price = '';
-                        var yelp = '';
-                        if (data.imageUrl) {
-                            image = '<br><img height="100" width="100" src="'
-                                    + data.imageUrl + '">';
+                    // avoid multiple objects in infowindow
+                    if (initialContent != infowindow.getContent()) {
+                        return;
+                    }
+                    // change infowindow content based on data from yelp
+                    if (data) {
+                        // data received
+                        if (data.available) {
+                            // place found on yelp
+                            var image = '';
+                            var rating = '';
+                            var price = '';
+                            var yelp = '';
+                            if (data.imageUrl) {
+                                image = '<br><img height="100" width="100" src="'
+                                        + data.imageUrl + '">';
+                            }
+                            if (data.rating) {
+                                rating = '<br><div><b>Rating:</b> ' +
+                                        data.rating +
+                                        ' (based on ' +
+                                        data.reviewCount +
+                                        ' reviews)</div>';
+                            }
+                            if (data.price) {
+                                price = '<div><b>Price:</b> ' +
+                                        data.price + '</div>';
+                            }
+                            if (data.yelpUrl) {
+                                yelp = '<div><a href="' + data.yelpUrl +
+                                    '">Provided by Yelp.com</a></div>';
+                            }
+                            // add yelp data to infowindow
+                            infowindow.setContent(initialContent + image + 
+                                                  rating + price + yelp);
+                        } else {
+                            // place not found on yelp
+                            var notfound = '<br><br><div>(Sorry, this place is \
+                                            not found on Yelp.\
+                                            Rating, photos and prices are not \
+                                            available.)\
+                                            <a href="http://www.yelp.com" \
+                                            target="blank">www.yelp.com</a>\
+                                            </div>';
+                            infowindow.setContent(initialContent + notfound);
                         }
-                        if (data.rating) {
-                            rating = '<br><div><b>Rating:</b> '
-                                     + data.rating
-                                     + ' (based on '
-                                     + data.reviewCount
-                                     + ' reviews)</div>';
-                        }
-                        if (data.price) {
-                            price = '<div><b>Price:</b> '
-                                    + data.price + '</div>';
-                        }
-                        if (data.yelpUrl) {
-                            yelp = '<div><a href="' + data.yelpUrl
-                                    + '">Go to Yelp</a></div>';
-                        }
-                        // add yelp data to infowindow
-                        infowindow.setContent(content + image + rating
-                                              + price + yelp)
                     } else {
-                        var nodata = '<br><div></div>'
-                        infowindow.setContent(content + nodata)
+                        // data from yelp is not available
+                        var nodata = '<br><br><div>\
+                                      (Sorry, Yelp is not responding. \
+                                      Rating, photos and prices are not \
+                                      available at this time.)\
+                                      <a href="http://www.yelp.com" \
+                                      target="blank">www.yelp.com</a></div>';
+                        infowindow.setContent(initialContent + nodata);
                     }
                 }
             );
 
-            // highlight current marker in the sidebar
-            highlightItem(marker.title);
+            // highlight coffee shop clicked on the map in the sidebar
+            _viewModel.highlightCafe(marker.title);
 
         }
     })(marker, content));
@@ -122,49 +147,26 @@ function addMarker(cafe) {
     })(marker));
 }
 
-// filter markers on the map 
+// filter markers on the map
 filterMarkers = function (milk) {
     if (typeof google === 'object' && typeof google.maps === 'object') {
         for (i = 0; i < mapMarkers.length; i++) {
             marker = mapMarkers[i];
-            if (marker.milk.indexOf(milk) != -1 || milk == "All") {
-                marker.setVisible(true);
-            }
-            else {
-                marker.setVisible(false);
-            }
+            var match = marker.milk.indexOf(milk) != -1 || milk == "All";
+            marker.setVisible(match);
         }
     }
 }
 
-// add toggler for sidebar/map ratio
-initializePage = function () {
-    $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('active');
-        $('#map').toggleClass('active');
-    });
-}
-
-// change list item style, if user clicks on the marker
-highlightItem = function (item) {
-    $('.coffeeshop').css('font-weight', 'normal');
-    $('.coffeeshop').css('color', 'teal');
-    $('.coffeeshop').css('background-color', 'inherit');
-    $('.coffeeshop:contains("' + item + '")').css('font-weight', 'bold');
-    $('.coffeeshop:contains("' + item + '")').css('color', '#551A8B');
-    $('.coffeeshop:contains("' + item + '")').css('background-color', '#eee');
-}
-
-// when dom is ready, add toggler
-$(document).ready(initializePage);
-if (typeof google == "undefined") {
-    highlightItem(coffeeshops[0].name);
+// google maps api is not available
+gmapsError = function () {
+    alert("Sorry, Google Maps API is not available. Map will not be shown.");
 }
 
 // add map to the dom
 try {
     initializeMap();
 } catch (err) {
-    console.log()
+    console.log();
 }
 

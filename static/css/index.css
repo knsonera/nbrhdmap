@@ -77,6 +77,11 @@ body .container {
     margin-right: -250px;
 }
 
+.sidebarActive {
+    display: none;
+    margin-right: -250px;
+}
+
 #sidebar .sidebar-header {
     color: teal;
     margin: 10px;
@@ -120,9 +125,10 @@ body .container {
     color: teal;
 }
 
-.coffeeshop-clicked{
+.coffeeshopClicked{
     background-color: #eee;
     font-weight: bold;
+    color: #551A8B;
 }
 
 .coffeeshop:active {
@@ -203,6 +209,10 @@ body .container {
     margin-right: 0;
 }
 
+.mapActive {
+    margin-right: 0;
+}
+
 html {
     background-color: lightblue;
 }
@@ -214,6 +224,9 @@ html {
         margin-left: -250px;
     }
     #sidebar.active {
+        margin-left: 0;
+    }
+    .sidebarActive {
         margin-left: 0;
     }
     #sidebarCollapse span {
