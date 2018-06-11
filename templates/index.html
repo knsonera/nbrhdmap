@@ -13,6 +13,11 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+    <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+    </script>
+    <script src="//apis.google.com/js/platform.js?onload=start"></script>
+    <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
     <link href="../static/css/index.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="../static/pics/map.png" />
     <link rel="icon" type="image/png" href="../static/pics/map.png" />
@@ -27,17 +32,28 @@
             <a class="navbar-brand" href="http://map.uzhvieva.com/">
                 <img class="map-icon" src="../static/icons/coffee.png">
             </a>
-            <a class="navbar-brand nav-text" href="">Seattle's Coffee</a>
+            <a class="navbar-brand nav-text" href="/">Seattle's Coffee</a>
             <!-- sidebar toggler -->
             <!-- data binding on click -->
             <button type="button" id="sidebarCollapse" class="btn navbar-btn" data-bind="click: openSidebar">
-                <i data-feather="list"></i>
-            </button>
+                    <i data-feather="list"></i>
+                </button>
+            <!-- login block, currently available only if user is logged in -->
+            {%if 'username' not in session %}
+            <!--<a class="login-info" href="{{url_for('showLogin')}}">Sign in
+            </a> -->
+            {% else %}
+            <a class="login-info" href="{{url_for('gdisconnect')}}">
+            <span class="user-name">{{session["username"]}}</span> (Logout)</a> 
+            {% endif %}
+            
         </nav>
 
         <div class="wrapper">
             <!-- map -->
             <main role="main" id="map" data-bind="css: {active: sidebarOpened}">
+                <!--this block is only visible if google maps are not available-->
+                <!--contains current cafe description and yelp data-->
                 <div class="no-map-container map-loaded" id="cafe" 
                      data-bind="with: currentCafe">
                     <div class="no-map cafe-info">
@@ -92,7 +108,17 @@
             <nav id="sidebar" data-bind="css: {active: sidebarOpened}">
                 <div class="sidebar-header">
                     <span class="list-title">Coffee shops</span>
-                    <!-- filters -->
+                    <!-- create new cafe button (for google users) -->
+                    {%if 'username' in session %}
+                    <div class="dropdown">
+                        <button type="button" class="btn dropdown-toggle" 
+                            id="addCafeButton"
+                            onclick="window.location.href='{{url_for('newCafe')}}'">
+                            <i data-feather="plus"></i>
+                        </button>
+                    </div>
+                    {% endif %}
+                    <!--filter button with dropdown menu-->
                     <div class="dropdown">
                         <button type="button" class="btn dropdown-toggle" 
                                 id="dropdownMenuButton" 
@@ -158,6 +184,7 @@
                                 </input>
                             </div>
                         </div>
+                        <!--if no cafes available, show "no results" text -->
                         <span class="no-result" 
                               data-bind="visible: filteredCafe().length == 0">
                             No Results
@@ -170,6 +197,16 @@
                             <a class="nav-link coffeeshop" href="#" 
                                 data-bind="text: name, click: $parent.setCafe, css: {coffeeshopClicked: $data == $parent.currentCafe()}">
                             </a>
+                            <!--delete button, only for oauth users -->
+                            <!--hidden if list is empty -->
+                            {%if 'username' in session %}
+                            {%if cafes[0] %}
+                            <a role="button" class="btn delete-cafe-button" 
+                               data-bind="attr:{href: '/cafes/delete/' + id}">
+                               <i class="delete-cafe-icon"
+                                  data-feather="trash"></i></a>
+                            {% endif %}
+                            {% endif %}
                         </li>
                     </ul>
             </nav>

@@ -39,3 +39,18 @@ function loadYelpDataForCafe(name, location, loaded) {
         }
     });
 }
+
+function loadAllCafes(loaded) {
+    $.ajax({
+        url: '/cafes/JSON',
+        dataType: 'json',
+        success: function (json) {
+            if (json.hasOwnProperty('Cafes') && json.Cafes[0]) {
+                loaded(json.Cafes);
+            }
+        },
+        error: function () {
+            alert('Data is not available. Try again later');
+            loaded([]);
+        }})
+}

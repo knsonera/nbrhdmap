@@ -43,6 +43,7 @@ body .container {
 }
 
 #sidebarCollapse {
+    float: right;
     margin-right: 10px;
     background: teal;
     color: aliceblue;
@@ -53,6 +54,15 @@ body .container {
     margin-top: -3px;
     height: 24px;
     width: 24px;
+}
+
+.login-info {
+    float: right;
+    margin-right: 10px;
+    margin-top: 12px;
+    color: rgb(5, 78, 78);
+    font-weight: bold;
+    font-size: 16px;
 }
 
 /* SIDEBAR */
@@ -96,6 +106,12 @@ body .container {
     margin-left: 10px;
 }
 
+#addCafeButton {
+    float: right;
+    background-color: lightblue;
+    margin-left: 3px;
+}
+
 #dropdownMenuButton {
     float: right;
     background-color: lightblue
@@ -116,9 +132,69 @@ body .container {
     clear: both;
 }
 
+.create-new-cafe {
+    margin: 10px;
+}
+
+.new-cafe-title {
+    font-size: 18px;
+    color: teal;
+}
+
+.new-cafe-desc {
+    font-size: 14px;
+    color: teal;
+}
+
+.new-cafe-submit {
+    background-color: teal;
+}
+
+.google-title {
+    margin-top: 20px;
+    font-size: 18px;
+    color: teal;
+    text-align: center;
+}
+
+.google-desc {
+    font-size: 14px;
+    color: teal;
+    text-align: center;
+}
+
+#signinButton {
+    display: block;
+    height: auto;
+}
+
+.generic-button {
+    background-color: teal;
+    color: lightblue;
+}
+
+.delete-cafe-button {
+    display: inline;
+    position: relative;
+    top: -30px;
+    left: 190px;
+    width: 10px;
+    height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    color: teal;
+}
+
+.delete-cafe-icon {
+    position: relative;
+    top: -10px;
+    right: 9px;
+}
+
 .nav-item {
     font-size: 14px;
     color: teal;
+    height: 40px;
 }
 
 .nav-link {

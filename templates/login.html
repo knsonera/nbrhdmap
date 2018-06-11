@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Seattle's Coffee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <!-- Latest compiled and minified CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+    </script>
+    <script src="//apis.google.com/js/platform.js?onload=start"></script>
+    <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
+    <link href="/static/css/index.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="/static/pics/map.png" />
+    <link rel="icon" type="image/png" href="/static/pics/map.png" />
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- header -->
+        <nav class="navbar fixed-top flex-md-nowrap">
+            <a class="navbar-brand" href="http://map.uzhvieva.com/">
+                <img class="map-icon" src="/static/icons/coffee.png">
+            </a>
+            <!-- login info -->
+            <a class="navbar-brand nav-text" href="/">Seattle's Coffee</a>
+            {%if 'username' not in session %}
+            <!--<a class="nav-link my-lg-0 login-info" href="{{url_for('showLogin')}}">Sign in
+            </a> -->
+            {% else %}
+            <a class="nav-link my-lg-0 login-info" href="{{url_for('gdisconnect')}}">
+            <span class="user-name">{{session["username"]}}</span> (Logout)</a> 
+            {% endif %}
+            
+        </nav>
+
+        <div class="wrapper">
+            <!-- map -->
+            <main role="main" id="map" active>
+                <div class="no-map-container map-loaded" id="cafe" data-bind="with: currentCafe">
+                    <div class="no-map cafe-info">
+                        <h3 class="no-map cafe-name" data-bind="text: name"></h3>
+                        <p class="no-map cafe-description" data-bind="text: description"></p>
+                        <!-- ko if: yelpData -->
+                        <!-- ko if: yelpData.imageUrl -->
+                        <img class="no-map cafe-image" data-bind="attr: {src: yelpData.imageUrl}" src="" />
+                        <!-- /ko -->
+                        <!-- ko if: yelpData.rating -->
+                        <p>
+                            <span class="no-map cafe-desc-title">
+                                Rating:
+                            </span>
+                            <span class="no-map cafe-description" data-bind="text: yelpData.rating" />
+                            <!-- /ko -->
+                            <!-- ko if: yelpData.price -->
+                            <p>
+                                <span class="no-map cafe-desc-title">
+                                    Price:
+                                </span>
+                                <span class="no-map cafe-description" data-bind="text: yelpData.price" />
+                            </p>
+                            <!-- /ko -->
+                            <!-- ko if: yelpData.yelpUrl -->
+                            <p>
+                                <span class="no-map cafe-description">
+                                    Information provided by
+                                </span>
+                                <a class="no-map cafe-yelp-link" data-bind="attr: {href: yelpData.yelpUrl}" href="" target="blank">Yelp.com</a>
+                            </p>
+                            <!-- /ko -->
+                            <!-- /ko -->
+                            <!-- ko ifnot: yelpData -->
+                            <p>
+                                <span class="no-map cafe-description">
+                                    (Yelp is not responding. Rating and price are not available at this time.)
+                                </span>
+                            </p>
+                            <!-- /ko -->
+                    </div>
+                </div>
+            </main>
+            <!-- sidebar -->
+            <nav id="sidebar" active>
+                <div class="show-all-cafes" style="display:none;">
+                    <div class="sidebar-header">
+                        <span class="list-title">Coffee shops</span>
+                        <!-- list of places -->
+                        <ul class="nav place-list" data-bind="foreach: filteredCafe">
+                            <li class="nav-item">
+                                <a class="nav-link coffeeshop" href="#" data-bind="text: name, click: $parent.setCafe, css: {coffeeshopClicked: $data == $parent.currentCafe()}">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="text-center">
+                        <h1 class="h4 mb-3 font-weight-normal google-title" id="signinTitle">Please sign in</h1>
+                        <!-- GOOGLE PLUS SIGN IN-->
+                        <div id="signinButton">
+                          <span class="g-signin" data-scope="openid email" 
+                            data-clientid="62217065307-vpo3cunaumhtdab8h268a78jc1uihf6q.apps.googleusercontent.com"
+                            data-redirecturi="postmessage" data-accesstype="offline" 
+                            data-cookiepolicy="single_host_origin" data-callback="signInCallback"
+                            data-approvalprompt="force"></span>
+                        </div>
+                        <div id="result"></div>
+                        <p class="mt-5 mb-3 text-muted google-desc" id="signinCopy">&copy; 2018</p>
+                </div>
+            </nav>
+        </div>
+    </div>
+    </div>
+    <script src="/static/js/utils.js" type="text/javascript"></script>
+    <script src="/static/js/app.js" type="text/javascript"></script>
+    <script src="/static/js/index.js" type="text/javascript"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJu-DuGHp_7ffUNx7gBQNNoangphWaOVE&callback=initializeMap"
+        onerror="gmapsError()">
+        </script>
+    <script>
+        function signInCallback(authResult) {
+            if (authResult['code']) {
+
+            // Hide the sign-in button now that the user is authorized
+            $('#signinButton').attr('style', 'display: none');
+            $('#signinTitle').attr('style', 'display: none');
+            $('#signinCopy').attr('style', 'display: none');
+
+
+            // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main page
+            $.ajax({
+                type: 'POST',
+                url: '/gconnect?state={{STATE}}',
+                processData: false,
+                data: authResult['code'],
+                contentType: 'application/octet-stream; charset=utf-8',
+                success: function (result) {
+                // Handle or verify the server response if necessary.
+                if (result) {
+                    $('#result').html(result + '</br> Redirecting...')
+                    setTimeout(function () {
+                    window.location.href = "/";
+                    }, 2000);
+                } else if (authResult['error']) {
+                    console.log('There was an error: ' + authResult['error']);
+                } else {
+                    $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+                }
+                }
+
+      });
+    }
+  }
+        </script>
+    <script>
+        feather.replace()
+    </script>
+</body>
+
+</html>

@@ -3,23 +3,27 @@ var infowindow;
 
 var mapMarkers = [];
 
-var coffeeshops = cafeJS;
+var coffeeshops = {};
 var currentMarker;
 
 // create Map, InfoWindow object add markers to the map
 
 function initializeMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
+        zoom: 12,
         center: { lat: 47.62, lng: -122.27 }
     });
     infowindow = new google.maps.InfoWindow({
         content: '',
         maxWidth: 250
     });
-    for (i = 0; i < coffeeshops.length; i++) {
-        addMarker(coffeeshops[i]);
-    }
+    setTimeout(function() {
+        coffeeshops = cafeJS;
+        for (i = 0; i < coffeeshops.length; i++) {
+            addMarker(coffeeshops[i]);
+        }
+    }, 1000)
+    
 }
 
 // create markers with custom attributes
@@ -34,7 +38,7 @@ function addMarker(cafe) {
         title: cafe.name,
         milk: cafe.milk,
         animation: google.maps.Animation.DROP,
-        icon: "../static/icons/red-icon.png",
+        icon: "/static/icons/red-icon.png",
         location: cafe.coords.lat + "," + cafe.coords.lng
     });
 
@@ -46,10 +50,10 @@ function addMarker(cafe) {
         return function () {
             // change current marker icon color to red
             if (currentMarker) {
-                currentMarker.setIcon("../static/icons/red-icon.png");
+                currentMarker.setIcon("/static/icons/red-icon.png");
             }
             // set marker color to green
-            marker.setIcon("../static/icons/green-icon.png");
+            marker.setIcon("/static/icons/green-icon.png");
 
             // remember current marker
             currentMarker = marker;
@@ -132,7 +136,7 @@ function addMarker(cafe) {
     // change icon color if user closes infowindow
     google.maps.event.addListener(infowindow, 'closeclick', (function () {
         return function () {
-            currentMarker.setIcon('../static/icons/red-icon.png');
+            currentMarker.setIcon('/static/icons/red-icon.png');
         }
     })());
 
@@ -141,7 +145,7 @@ function addMarker(cafe) {
         return function () {
             infowindow.close();
             if (currentMarker) {
-                currentMarker.setIcon('../static/icons/red-icon.png');
+                currentMarker.setIcon('/static/icons/red-icon.png');
             }
         }
     })(marker));

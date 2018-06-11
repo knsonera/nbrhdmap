@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Seattle's Coffee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <!-- Latest compiled and minified CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+    </script>
+    <script src="//apis.google.com/js/platform.js?onload=start"></script>
+    <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
+    <link href="/static/css/index.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="/static/pics/map.png" />
+    <link rel="icon" type="image/png" href="/static/pics/map.png" />
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- header with brand name, toggler and user info -->
+        <nav class="navbar fixed-top flex-md-nowrap">
+            <a class="navbar-brand" href="http://map.uzhvieva.com/">
+                <img class="map-icon" src="/static/icons/coffee.png">
+            </a>
+            <a class="navbar-brand nav-text" href="/">Seattle's Coffee</a>
+            <!-- login info, currently available only if user is logged in -->
+            {%if 'username' not in session %}
+            <!--<a class="nav-link my-lg-0 login-info" href="{{url_for('showLogin')}}">Sign in
+            </a> -->
+            {% else %}
+            <a class="nav-link my-lg-0 login-info" href="{{url_for('gdisconnect')}}">
+            <span class="user-name">{{session["username"]}}</span> (Logout)</a> 
+            {% endif %}
+            
+        </nav>
+
+        <div class="wrapper">
+            <!-- map -->
+            <main role="main" id="map" active>
+                <!--this block is only visible if google maps are not available-->
+                <div class="no-map-container map-loaded" id="cafe" data-bind="with: currentCafe">
+                    <div class="no-map cafe-info">
+                        <h3 class="no-map cafe-name" data-bind="text: name"></h3>
+                        <p class="no-map cafe-description" data-bind="text: description"></p>
+                        <!-- ko if: yelpData -->
+                        <!-- ko if: yelpData.imageUrl -->
+                        <img class="no-map cafe-image" data-bind="attr: {src: yelpData.imageUrl}" src="" />
+                        <!-- /ko -->
+                        <!-- ko if: yelpData.rating -->
+                        <p>
+                            <span class="no-map cafe-desc-title">
+                                Rating:
+                            </span>
+                            <span class="no-map cafe-description" data-bind="text: yelpData.rating" />
+                            <!-- /ko -->
+                            <!-- ko if: yelpData.price -->
+                            <p>
+                                <span class="no-map cafe-desc-title">
+                                    Price:
+                                </span>
+                                <span class="no-map cafe-description" data-bind="text: yelpData.price" />
+                            </p>
+                            <!-- /ko -->
+                            <!-- ko if: yelpData.yelpUrl -->
+                            <p>
+                                <span class="no-map cafe-description">
+                                    Information provided by
+                                </span>
+                                <a class="no-map cafe-yelp-link" data-bind="attr: {href: yelpData.yelpUrl}" href="" target="blank">Yelp.com</a>
+                            </p>
+                            <!-- /ko -->
+                            <!-- /ko -->
+                            <!-- ko ifnot: yelpData -->
+                            <p>
+                                <span class="no-map cafe-description">
+                                    (Yelp is not responding. Rating and price are not available at this time.)
+                                </span>
+                            </p>
+                            <!-- /ko -->
+                    </div>
+                </div>
+            </main>
+            <!-- sidebar -->
+            <nav id="sidebar" active>
+                <div class="show-all-cafes" style="display:none;">
+                    <div class="sidebar-header">
+                        <span class="list-title">Coffee shops</span>
+                        <!-- list of places -->
+                        <ul class="nav place-list" data-bind="foreach: filteredCafe">
+                            <li class="nav-item">
+                                <a class="nav-link coffeeshop" href="#" data-bind="text: name, click: $parent.setCafe, css: {coffeeshopClicked: $data == $parent.currentCafe()}">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="create-new-cafe">
+                    <h3 class="new-cafe-title">
+                        <span>Are you sure you want to delete {{cafe.name}}?</span>
+                    </h3>
+                    <p></p>
+                    <form action="#" method="post">
+                        <div>
+                            <button type="submit" class="btn generic-button">Delete</button>
+                            <a role="button" class="btn generic-button" 
+                               href="{{url_for('showMainPage')}}">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+    </div>
+    <script src="/static/js/utils.js" type="text/javascript"></script>
+    <script src="/static/js/app.js" type="text/javascript"></script>
+    <script src="/static/js/index.js" type="text/javascript"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJu-DuGHp_7ffUNx7gBQNNoangphWaOVE&callback=initializeMap"
+        onerror="gmapsError()">
+        </script>
+    <script>
+        feather.replace()
+    </script>
+</body>
+
+</html>
