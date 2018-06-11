@@ -121,6 +121,7 @@ def deleteTopic(cafe_id):
 def gconnect():
     # Validate state token
     if request.args.get('state') != login_session['state']:
+        print "invalid state parameter"
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
@@ -128,11 +129,13 @@ def gconnect():
     code = request.data
 
     try:
+        print "trying to upgrade auth code"
         # Upgrade the authorization code into a credentials object
         oauth_flow = flow_from_clientsecrets('static/js/client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
+        print "failed to upgrade the authorization code"
         response = make_response(
             json.dumps('Failed to upgrade the authorization code.'), 401)
         response.headers['Content-Type'] = 'application/json'
@@ -145,6 +148,7 @@ def gconnect():
     result = json.loads(h.request(url, 'GET')[1])
     # If there was an error in the access token info, abort.
     if result.get('error') is not None:
+        print "access token info contains error"
         response = make_response(json.dumps(result.get('error')), 500)
         response.headers['Content-Type'] = 'application/json'
         return response
@@ -152,6 +156,7 @@ def gconnect():
     # Verify that the access token is used for the intended user.
     gplus_id = credentials.id_token['sub']
     if result['user_id'] != gplus_id:
+        print "Token's user ID doesn't match given user ID."
         response = make_response(
             json.dumps("Token's user ID doesn't match given user ID."), 401)
         response.headers['Content-Type'] = 'application/json'
@@ -178,6 +183,7 @@ def gconnect():
         # if result['status'] == '200':
         #    del login_session['access_token']
     else:
+        print "user is not connected, connecting..."
         login_session['gplus_id'] = gplus_id
 
         # Get user info
@@ -193,6 +199,7 @@ def gconnect():
 
         user_id = getUserId(login_session['email'])
         if not user_id:
+            print "creating new user in db"
             user_id = createUser(login_session)
         login_session['user_id'] = user_id
 
@@ -208,6 +215,7 @@ def gconnect():
     output += login_session['picture']
     output += ' " style = "width: 100px; height: 100px;border-radius: 150px;\
         -webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    print "returning result"
     return output
 
 
@@ -229,6 +237,7 @@ def gdisconnect():
     result = h.request(url, 'GET')[0]
 
     if result['status'] == '200':
+        print 'status 200'
         del login_session['access_token']
         del login_session['gplus_id']
         del login_session['username']
@@ -242,6 +251,7 @@ def gdisconnect():
         return render_template('logout.html',
                                user_status=status)
     else:
+        print 'Failed to revoke token for given user.'
         response = make_response(
             json.dumps('Failed to revoke token for given user.'), 400
         )
@@ -269,12 +279,15 @@ def cafesJSON():
 
 # create new user with login session info
 def createUser(login_session):
+    print "inside createUser function"
     newUser = AppUser(name=login_session['username'],
                       email=login_session['email'],
                       picture=login_session['picture'])
     session.add(newUser)
     session.commit()
+    print "returning user..."
     user = session.query(AppUser).filter_by(email=login_session['email']).one()
+    print user.id
     return user.id
 
 
