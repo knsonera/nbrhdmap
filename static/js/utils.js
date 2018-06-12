@@ -40,6 +40,53 @@ function loadYelpDataForCafe(name, location, loaded) {
     });
 }
 
+function loadCoordsForCafe(name, loaded) {
+    $.ajax({
+        url: '/api/get/coords',
+        dataType: 'json',
+        data: {"address": name},
+        success: function (json) {
+            if (json.hasOwnProperty('results') && json.results[0]) {
+                console.log(json.results[0].geometry.location.lat);
+                var placeLat = json.results[0].geometry.location.lat
+                var placeLng = json.results[0].geometry.location.lng
+                var placeAddress = json.results[0].formatted_address
+
+                var result = {
+                    lat: placeLat,
+                    lng: placeLng,
+                    adr: placeAddress
+                };
+
+                loaded(result);
+            } else {
+                var result = {
+                    lat: "",
+                    lng: "",
+                    adr: ""
+                };
+                loaded(result);
+            }
+        },
+        error: function () {
+            alert('Google Maps Geocoding is not available.');
+            loaded(null);
+        }
+    });
+}
+
+function fetchCoords() {
+    var name = document.getElementById("newCafeName").value
+    console.log(name)
+    loadCoordsForCafe(name, function(data) {
+        if (data.hasOwnProperty('lat') && data.hasOwnProperty('lng')) {
+            document.getElementById("newCafeLat").value = data.lat
+            document.getElementById("newCafeLng").value = data.lng
+            document.getElementById("newCafeDesc").value = "Address: " + data.adr
+        }
+    })
+}
+
 function loadAllCafes(loaded) {
     $.ajax({
         url: '/cafes/JSON',
