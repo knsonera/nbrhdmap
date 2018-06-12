@@ -69,7 +69,7 @@ function loadCoordsForCafe(name, loaded) {
             }
         },
         error: function () {
-            alert('Google Maps Geocoding is not available.');
+            alert('Coordinates are not available for this place.');
             loaded(null);
         }
     });
