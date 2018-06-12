@@ -66,6 +66,24 @@ def getPlaceInfo():
     r.headers["Content-Type"] = "application/json; charset=utf-8"
     return r
 
+# request data from google maps geocoding
+@app.route("/api/get/coords")
+def getPlaceCoords():
+    # request parameters contain term and location of requested place
+    address = request.args.get('address')
+    http = httplib2.Http()
+    # headers of the request contain Yelp API key
+    url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + \
+        address + '&key=AIzaSyAJu-DuGHp_7ffUNx7gBQNNoangphWaOVE'
+    # replacing spaces with url encoding
+    url = url.replace(' ', '%20')
+    _, content = http.request(url, 'GET')
+
+    # return json object with data
+    r = Response(response=content, status=200, mimetype="application/json")
+    r.headers["Content-Type"] = "application/json; charset=utf-8"
+    return r
+
 
 # Create new cafe
 @app.route('/cafes/new/', methods=['GET', 'POST'])
