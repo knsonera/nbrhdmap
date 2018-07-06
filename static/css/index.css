@@ -30,15 +30,16 @@ body .container {
 }
   
 .navbar-brand {
+    font-family: 'Expletus Sans', cursive;
     font-size: 1rem;
     color: rgb(46, 41, 35);
     font-weight: bold;
     font-size: 22px;
-    vertical-align: middle;
+    vertical-align: bottom;
 }
 
 .nav-text {
-    padding-top: 15px;
+    padding-top: 17px;
     padding-left: .3rem;
 }
 
