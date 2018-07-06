@@ -34,7 +34,7 @@ YELP_API_KEY = 'iZC1vkpIktmdJW4bNLjTuwbuWsdGDDm6C24vQ0oHe20XtH2V3ag_vs85iGroCNff
 
 # Load client_id for google oauth
 CLIENT_ID = json.loads(
-    open('/vagrant/nbrhdmap/static/js/client_secrets.json', 'r').read())['web']['client_id']
+    open('/var/www/nmap/nmap/static/js/client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "nbrhd-map"
 
 
@@ -149,7 +149,7 @@ def gconnect():
     try:
         print "trying to upgrade auth code"
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('//vagrant/nbrhdmap/static/js/client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets('/var/www/nmap/nmap/static/js/client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
