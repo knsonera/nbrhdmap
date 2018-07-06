@@ -24,14 +24,14 @@ body .container {
 /* HEADER */
 
 .navbar {
-    background: lightblue;
+    background: rgb(204, 194, 190);
     margin: 0;
     border-radius: 0;
 }
   
 .navbar-brand {
     font-size: 1rem;
-    color: rgb(5, 78, 78);
+    color: rgb(46, 41, 35);
     font-weight: bold;
     font-size: 22px;
     vertical-align: middle;
@@ -45,8 +45,8 @@ body .container {
 #sidebarCollapse {
     float: right;
     margin-right: 10px;
-    background: teal;
-    color: aliceblue;
+    background: rgb(46, 41, 35);
+    color: rgb(255, 248, 240);
     float: right;
 }
 
@@ -60,7 +60,7 @@ body .container {
     float: right;
     margin-right: 10px;
     margin-top: 12px;
-    color: rgb(5, 78, 78);
+    color: rgb(46, 41, 35);
     font-weight: bold;
     font-size: 16px;
 }
@@ -70,7 +70,7 @@ body .container {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: aliceblue;
+    background: rgb(255, 248, 240);
     color: #fff;
     transition: all 0.3s;
     z-index: 100;
@@ -93,9 +93,9 @@ body .container {
 }
 
 #sidebar .sidebar-header {
-    color: teal;
+    color: rgb(46, 41, 35);
     margin: 10px;
-    background: aliceblue;
+    background: rgb(255, 248, 240);
 }
 
 .list-title {
@@ -108,13 +108,13 @@ body .container {
 
 #addCafeButton {
     float: right;
-    background-color: lightblue;
+    background-color: rgb(167, 151, 137);
     margin-left: 3px;
 }
 
 #dropdownMenuButton {
     float: right;
-    background-color: lightblue
+    background-color: rgb(167, 151, 137)
 }
 
 .dropdown-item {
@@ -138,28 +138,28 @@ body .container {
 
 .new-cafe-title {
     font-size: 18px;
-    color: teal;
+    color: rgb(46, 41, 35);
 }
 
 .new-cafe-desc {
     font-size: 14px;
-    color: teal;
+    color: rgb(46, 41, 35);
 }
 
 .new-cafe-submit {
-    background-color: teal;
+    background-color: rgb(46, 41, 35);
 }
 
 .google-title {
     margin-top: 20px;
     font-size: 18px;
-    color: teal;
+    color: rgb(46, 41, 35);
     text-align: center;
 }
 
 .google-desc {
     font-size: 14px;
-    color: teal;
+    color: rgb(46, 41, 35);
     text-align: center;
 }
 
@@ -169,8 +169,8 @@ body .container {
 }
 
 .generic-button {
-    background-color: teal;
-    color: lightblue;
+    background-color: rgb(46, 41, 35);
+    color: rgb(167, 151, 137);
 }
 
 .delete-cafe-button {
@@ -182,7 +182,7 @@ body .container {
     height: 20px;
     text-align: center;
     vertical-align: middle;
-    color: teal;
+    color: rgb(46, 41, 35);
 }
 
 .delete-cafe-icon {
@@ -193,18 +193,18 @@ body .container {
 
 .nav-item {
     font-size: 14px;
-    color: teal;
+    color: rgb(46, 41, 35);
     height: 40px;
 }
 
 .nav-link {
-    color: teal;
+    color: rgb(46, 41, 35);
 }
 
 .coffeeshopClicked{
     background-color: #eee;
     font-weight: bold;
-    color: #551A8B;
+    color: rgb(139, 52, 26);
 }
 
 .coffeeshop:active {
@@ -237,25 +237,25 @@ body .container {
 }
 
 .no-map.cafe-name {
-    color: teal;
+    color: rgb(46, 41, 35);
 }
 
 .no-map.cafe-description {
     font-size: 16px;
-    color: rgb(5, 78, 78);
+    color: rgb(65, 62, 58);
     width: 450px;
 }
 
 .no-map.cafe-desc-title {
     font-size: 16px;
-    color: rgb(5, 78, 78);
+    color: rgb(65, 62, 58);
     width: 450px;
     font-weight: bold;
 }
 
 .no-map.cafe-yelp-link {
     font-size: 16px;
-    color: rgb(21, 160, 160);
+    color: rgb(65, 62, 58);
     width: 450px;
     font-weight: bold;
     text-decoration: underline;
@@ -290,7 +290,7 @@ body .container {
 }
 
 html {
-    background-color: lightblue;
+    background-color: rgb(167, 151, 137);
 }
 
 /* MEDIA */
